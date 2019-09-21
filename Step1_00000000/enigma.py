@@ -11,6 +11,8 @@ class Pipeline:
         """初始字元順序"""
         self.origin_sequence = []
         self.length = 0
+        self.addtion = None
+        self.pointer = 0
         
     def defaultSequence(self):
         for i in range(10):
@@ -87,11 +89,33 @@ class Reflector(Pipeline):
     def __init__(self, _items=None):
         super().__init__()
         self.addOriginItems(_items)
-        self.addtion = None
-        self.setReflector()
-        self.pointer = 0
         
-    def setReflector(self):
+        # 設置 self.addtion
+        _temp_sequence = self.origin_sequence.copy()
+        random.shuffle(_temp_sequence)
+        self.addtion = self.getIndexAddition(_temp_sequence)
+        
+    def transform(self, _input):
+        if type(_input) is str:
+            _input = self.getIndex(_input)
+            
+        _output = _input + self.addtion[_input]
+        _output = _output % self.length
+        
+        print("[reflector]index:{}, addtion_index:{}, output:{}".format(_input, 
+              _output, self.origin_sequence[_output]))
+        
+        return self.origin_sequence[_output]
+
+
+class Rotor(Pipeline):
+    def __init__(self, _carry, _items=None):
+        super().__init__()
+        self.addOriginItems(_items)
+        # 進位值，每加密多少次更改一次加密組合，即 pointer + 1
+        self.carry = _carry
+        
+        # 設置 self.addtion
         _temp_sequence = self.origin_sequence.copy()
         random.shuffle(_temp_sequence)
         self.addtion = self.getIndexAddition(_temp_sequence)
@@ -100,33 +124,92 @@ class Reflector(Pipeline):
         if type(_input) is str:
             _input = self.getIndex(_input)
         
-        _output = _input + self.addtion[self.pointer]
+        _addtion_index = _input + self.pointer
+        _addtion_index = _addtion_index % self.length
+        print("[rotor]index:{}, pointer:{}, addtion_index:{}".format(_input, 
+              self.pointer, _addtion_index))
+            
+        _output = _input + self.addtion[_addtion_index]
         _output = _output % self.length
         
+        print("[rotor]out_index:{}, output:{}".format(_output,
+              self.origin_sequence[_output]))
         return self.origin_sequence[_output]
-
-class Rotor(Pipeline):
-    def __init__(self, _carry):
-        super().__init__()
-        self.carry = _carry
+    
+    def checkRotate(self, _pre_rotor):        
+        if _pre_rotor > 0 and _pre_rotor % self.carry == 0:
+            # 轉動旋轉盤，改變加密組合
+            self.pointer += 1
+            self.pointer = self.pointer % self.length
 
 
 class Enigma:
     def __init__(self, _items):
         self.items = _items
+        self.rotors = []
+        self.reflector = Reflector(items)
         
-    def test(self):
-        print("Hello Enigma!")
-
+    def add(self, _rotor):
+        assert type(_rotor) is Rotor, "請添加旋轉盤"
+        self.rotors.append(_rotor)
+        
+    def compile_(self):
+        _rotor_num = len(self.rotors)
+        for _r in range(_rotor_num):
+            if _r == 0:
+                continue
+            else:
+                self.rotors[_r].carry *= self.rotors[_r - 1].carry            
+        
+    def transform(self, _input):
+        _output = ""
+        _rotor_num = len(self.rotors)
+        for _index, _char in enumerate(_input):
+            # Forward propagation
+            for _r in range(_rotor_num):
+                _char = self.rotors[_r].transform(_char)
+                self.rotors[_r].checkRotate(_index)
+                
+            # Reflector
+            _char = self.reflector.transform(_char)
+            
+            # Back propagation
+            for _r in range(_rotor_num - 1, -1, -1):
+                _char = self.rotors[_r].transform(_char)
+                self.rotors[_r].checkRotate(_index)
+                
+            _output += _char
+            print("-"*30)
+        
+        return _output
 
 if __name__ == "__main__":   
     string = "Hello World"
     items = list(set(list(string)))
     
-    reflector = Reflector(items)
-    print("origin")
-    print(reflector.origin_sequence)
-    print("reflector")
-    print(reflector.addtion)
-    for i in string:
-        print(i, reflector.transform(i))
+#    reflector = Reflector(items)
+#    print("origin:", reflector.origin_sequence)
+#    print("reflector:", reflector.addtion)
+#    for i in string:
+#        print(i, reflector.transform(i))
+        
+    enigma = Enigma(items)
+    rotor = Rotor(1, items)
+    enigma.add(rotor)
+    enigma.compile_()
+    
+    print("origin:   ", rotor.origin_sequence)
+    print("rotor:    ", rotor.addtion)
+    reflector = enigma.reflector
+    print("reflector:", reflector.addtion)
+    print("="*30)
+#    for i, s in enumerate(string):
+#        print(i, s, rotor.transform(s))
+#        rotor.checkRotate(i + 1)
+    
+    code = "Hello"
+    encode = enigma.transform(code)
+    print(code)
+    print(encode)
+    
+    
