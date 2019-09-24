@@ -45,34 +45,49 @@ class Pipeline:
         self.origin_sequence.append(_item)
         
     def setSwap(self, _temp_array):
-        _length = len(_temp_array)
-        for i in range(_length):
+        """ 例子；例；For example
+        origin:        ['r', 'd', 'e', 'H', 'W', 'o', 'l']
+                       [  0,   1,   2,   3,   4,   5,   6]
+        temp_sequence: ['H', 'e', 'l', 'd', 'r', 'W', 'o']
+                       [  3,   2,   6,   1,   0,   4,   5]
+        length = 7
+        forward:       [ +4,  -1,  +4,  -1,  +1,  -2,  -5]        
+        backward:      [ +1,  +5,  +1,  +2,  -4,  -1,  -4]
+        """
+        _temp_seq_index = []
+        for t in _temp_array:
+            _temp_seq_index.append(self.getIndex(t))
+        # print("temp_seq_index:", _temp_seq_index)
+        self.forward = [0 for i in range(self.length)]
+        self.backward = [0 for i in range(self.length)]
+        
+        for i in range(self.length):
+            """ 例子；例；For example i = 0, _curr_char = 'H' """
             _curr_char = _temp_array[i]
+            """ 例子；例；For example _curr_index = 3 """
             _curr_index = self.getIndex(_curr_char)
+
+            """ 例子；例；For example _next = 1 """
+            _next = i + 1
             
-            _next = i + 1 
-            
-            if _next == _length:
+            if _next == self.length:
                 _next = 0
-                
+            
+            """ 例子；例；For example _next_char = 'e' """
             _next_char = _temp_array[_next]
+            """ 例子；例；For example _next_index = 2 """
             _next_index = self.getIndex(_next_char)
             
             # set forward 後減前
-            _index_gap = _next_index - _curr_index
-            
-            if _index_gap < 0:
-                _index_gap += _length
+            """ 例子；例；For example _next_gap = 2 - 3 = -1 """
+            _next_gap = _next_index - _curr_index
                 
-            self.forward.append(_index_gap)
-            
-            # set backward 前減後
-            _index_gap = _curr_index - _next_index
-            
-            if _index_gap < 0:
-                _index_gap += _length
-                
-            self.backward.append(_index_gap)
+            """ 例子；例；For example self.forward[3] = -1 """
+            self.forward[_curr_index] = _next_gap
+        
+        for i in range(self.length):
+            _back_index = i + self.forward[i]                
+            self.backward[_back_index] = -self.forward[i] 
         
     def getIndex(self, _char):
         for _index, _item in enumerate(self.origin_sequence):
@@ -81,6 +96,15 @@ class Pipeline:
         
         """查詢的字元不在 self.origin_sequence 當中"""
         return -1
+    
+    def getChar(self, _index):
+        if _index < 0:
+            _index += self.length
+        
+        if self.length <= _index:
+            _index %= self.length
+        
+        return self.origin_sequence[_index]
 
 class Reflector(Pipeline):
     def __init__(self, _items=None):
@@ -97,20 +121,20 @@ class Reflector(Pipeline):
             _input = self.getIndex(_input)
             
         _output = _input + self.forward[_input]
-        _output = _output % self.length
         
-#        print("[reflector]index:{}, addtion_index:{}, output:{}".format(_input, 
-#              _output, self.origin_sequence[_output]))
+        print("[reflector]from:{}, to:{}".format(_input, _output))
         
-        return self.origin_sequence[_output]
+        return self.getChar(_output)
 
 
 class Rotor(Pipeline):
-    def __init__(self, _carry, _items=None):
+    def __init__(self, _pointer, _items=None):
         super().__init__()
         self.addOriginItems(_items)
+        self.pointer = _pointer
+        
         # 進位值，每加密多少次更改一次加密組合，即 pointer + 1
-        self.carry = _carry
+        self.carry = 1
         
         # 設置 self.addtion
         self.temp_sequence = self.origin_sequence.copy()
@@ -122,35 +146,57 @@ class Rotor(Pipeline):
             _input = self.getIndex(_input)
         
         _swap_index = _input + self.pointer
-        _swap_index = _swap_index % self.length
-#        print("[rotor]index:{}, pointer:{}, swap_index:{}".format(_input, 
-#              self.pointer, _swap_index))
+        if self.length <= _swap_index:
+            _swap_index %= self.length
             
-        _output = _input + _direction[_swap_index]
-        _output = _output % self.length
+        _output = _swap_index + _direction[_swap_index]
+        print("[rotor]from:{}, pointer:{}, swap_index:{}, to:{}".format(_input, 
+              self.pointer, _swap_index, _output))
         
 #        print("[rotor]out_index:{}, output:{}".format(_output,
 #              self.origin_sequence[_output]))
-        return self.origin_sequence[_output]
+        return self.getChar(_output)
         
     def forwardSwap(self, _input):
-        return self.swap(_input, self.forward)
+        if type(_input) is str:
+            _input = self.getIndex(_input)
+        
+        _swap_index = _input + self.pointer
+        if self.length <= _swap_index:
+            _swap_index %= self.length
+            
+        _output = _swap_index + self.forward[_swap_index]
+        print("[forward]from:{}, pointer:{}, swap_index:{}, to:{}".format(_input, 
+              self.pointer, _swap_index, _output))
+        
+        return self.getChar(_output)
     
     def backwardSwap(self, _input):
-        return self.swap(_input, self.backward)
+        if type(_input) is str:
+            _input = self.getIndex(_input)
+            
+        _output = _input + self.backward[_input]
+        print("[backward]from:{}, to:{}".format(_input, _output))
+        
+#        print("[rotor]out_index:{}, output:{}".format(_output,
+#              self.origin_sequence[_output]))
+        return self.getChar(_output)
     
     def checkRotate(self, _pre_rotor):        
         if _pre_rotor > 0 and _pre_rotor % self.carry == 0:
             # 轉動旋轉盤，改變加密組合
             self.pointer += 1
             self.pointer = self.pointer % self.length
+            
+    def setCarry(self, _carry):
+        self.carry = _carry
 
 
 class Enigma:
     def __init__(self, _items):
         self.items = _items
         self.rotors = []
-        self.reflector = Reflector(items)
+        self.reflector = Reflector(self.items)
         
     def add(self, _rotor):
         assert type(_rotor) is Rotor, "請添加旋轉盤"
@@ -162,7 +208,7 @@ class Enigma:
             if _r == 0:
                 continue
             else:
-                self.rotors[_r].carry *= self.rotors[_r - 1].carry            
+                self.rotors[_r].carry = self.rotors[_r - 1].carry * self.rotors[_r].length
         
     def swap(self, _input):
         _output = ""
@@ -184,40 +230,86 @@ class Enigma:
                 self.rotors[_r].checkRotate(_index + 1)
                 
             _output += _char
-#            print("-"*30)
+            print("-"*30)
         
         return _output
-
-if __name__ == "__main__":   
-    string = "Hello World"
-    code = "Hello"
-    items = list(set(list(string)))
     
-#    reflector = Reflector(items)
-#    print("origin:", reflector.origin_sequence)
-#    print("reflector:", reflector.temp_sequence)
-#    print("forward:", reflector.forward)
-#    print("backward:", reflector.backward)
-#    for i in code:
-#        print(i, reflector.swap(i))
+    
+def reflectorTest():
+    # _string = "HelloWorld"    
+    # _items = list(set(list(_string)))
+    _items = ['r', 'd', 'e', 'H', 'W', 'o', 'l']
+    _code = "Hello"    
+    _reflector = Reflector(_items)
+    print("origin:    ", _reflector.origin_sequence)
+    print("reflector: ", _reflector.temp_sequence)
+    print("forward:   ", _reflector.forward)
+    print("backward:  ", _reflector.backward)
+    for i in _code:
+        print(i, _reflector.swap(i))
         
-    enigma = Enigma(items)
-    rotor = Rotor(1, items)
-    enigma.add(rotor)
-    enigma.compile_()
+
+def rotorTest():
+    # _string = "HelloWorld"    
+    # _items = list(set(list(_string)))
+    _items = ['r', 'd', 'e', 'H', 'W', 'o', 'l']
+    _code = "Hello"
     
-    print("origin:   ", rotor.origin_sequence)
-    print("forward:  ", rotor.forward)
-    print("backward: ", rotor.backward)
-    reflector = enigma.reflector
-    print("reflector:", reflector.forward)
-#    print("="*30)
-#    for i, s in enumerate(string):
-#        print(i, s, rotor.transform(s))
-#        rotor.checkRotate(i + 1)
+    _rotor = Rotor(1, _items)
+    print("origin:", _rotor.origin_sequence)
+    print("temp_sequence:", _rotor.temp_sequence)
+    print("forward:", _rotor.forward)
+    print("backward:", _rotor.backward)
+    print("="*30)
     
-    encode = enigma.swap(code)
-    print(code)
+    _encode = ""
+    for i in _code:
+        _encode += _rotor.forwardSwap(i)
+        
+    print("encode:{}".format(_encode))
+    
+    _decode = ""
+    for i in _encode:
+        _decode += _rotor.backwardSwap(i)
+        
+    print("decode:{}".format(_decode))
+    
+    
+def enigmaTest():
+    _items = ['r', 'd', 'e', 'H', 'W', 'o', 'l']
+    _code = "ell"
+    
+    _enigma = Enigma(_items)
+    _rotor = Rotor(0, _items)
+    _enigma.add(_rotor)
+    _enigma.compile_()
+    print("origin:   ", _rotor.origin_sequence)
+    print("forward:  ", _rotor.forward)
+    print("reflector:", _enigma.reflector.forward)
+    print("backward: ", _rotor.backward)
+    
+    encode = _enigma.swap(_code)
     print(encode)
     
+
+def enigmaTest2():
+    _items = ['r', 'd', 'e', 'H', 'W', 'o', 'l']
+    _code = "ell"
     
+    _enigma = Enigma(_items)
+    _rotor = Rotor(0, _items)
+    _enigma.add(_rotor)
+    _enigma.compile_()    
+    _encode = _enigma.swap(_code)
+    print("encode:", _encode)
+        
+    _enigma.rotors[0].pointer = 0
+    _decode = _enigma.swap(_encode)
+    print("decode:", _decode)
+    
+
+if __name__ == "__main__":
+#     reflectorTest()
+#    rotorTest()
+#    enigmaTest()
+    enigmaTest2()
