@@ -63,6 +63,29 @@ def japaneseTest():
         print(j, ord(j))
         
     print(chr(12354 + 3))
+    
+    
+def shuffleTest(_array):
+    _length = len(_array)
+    _shuffle_array = [0 for i in range(_length)]
+    _is_odd = False
+    
+    if _length & 1 == 1:
+        _is_odd = True
+        _length -= 1
+        
+    for i in range(0, _length, 2):
+        try:
+            _shuffle_array[i] = _array[i + 1]
+            _shuffle_array[i + 1] = _array[i]
+        except IndexError:
+            print("length:{}, require index:{}".format(len(_array), i + 1))
+            
+    if _is_odd:
+        _shuffle_array[_length] = _array[_length]
+            
+    return _shuffle_array
+    
 
 if __name__ == "__main__":
     # numberASCII()        
@@ -70,34 +93,9 @@ if __name__ == "__main__":
     # sixQuotationMarksTest()
     # chineseTest()
     # japaneseTest()
-    def getPointer(_array, _char):
-        for i, c in enumerate(_array):
-            if c == _char:
-                return i
-            
-    origin = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-    shuffle = ['1', '2', '8', '9', '4', '0', '5', '3', '6', '7']
-    pointer = []
-    length = len(shuffle)
-    for index in range(length):
-        curr = shuffle[index]
-        curr_pointer = getPointer(origin, curr)
-        
-        next_index = index + 1 
-        
-        if next_index == length:
-            next_index = 0
-            
-        next_char = shuffle[next_index]
-        next_pointer = getPointer(origin, next_char)
-        
-        pointer_plus = next_pointer - curr_pointer
-        
-        if pointer_plus < 0:
-            pointer_plus += length
-            
-        pointer.append(pointer_plus)
-        
-    print(pointer)
+    array = [1, 2, 3, 4, 5, 6]
+    shuffle_array = shuffleTest(array)
+    print(array)
+    print(shuffle_array)
         
         

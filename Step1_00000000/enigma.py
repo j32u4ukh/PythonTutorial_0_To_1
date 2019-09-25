@@ -10,6 +10,7 @@ class Pipeline:
     def __init__(self):
         """初始字元順序"""
         self.origin_sequence = []
+        self.shuffle_sequence = []
         self.length = 0
         self.forward = []
         self.backward = []
@@ -43,6 +44,26 @@ class Pipeline:
         """將 _item 的值放入 self.origin_sequence"""
         assert (type(_item) is chr) or (type(_item) is str), "_item 的類型必須是 chr 或 str"
         self.origin_sequence.append(_item)
+        
+    def defaultShuffle(self):
+        _length = self.length
+        self.shuffle_sequence = [0 for i in range(_length)]        
+        _is_odd = False
+        
+        # 是奇數個
+        if _length & 1 == 1:
+            _is_odd = True
+            _length -= 1
+            
+        for i in range(0, _length, 2):
+            try:
+                self.shuffle_sequence[i] = self.origin_sequence[i + 1]
+                self.shuffle_sequence[i + 1] = self.origin_sequence[i]
+            except IndexError:
+                print("length:{}, require index:{}".format(self.length, i + 1))
+                
+        if _is_odd:
+            self.shuffle_sequence[_length] = self.origin_sequence[_length]
         
     def setSwap(self, _temp_array):
         """ 例子；例；For example
@@ -112,9 +133,8 @@ class Reflector(Pipeline):
         self.addOriginItems(_items)
         
         # 設置 forward backward
-        self.temp_sequence = self.origin_sequence.copy()
-        random.shuffle(self.temp_sequence)
-        self.setSwap(self.temp_sequence)
+        self.defaultShuffle()
+        self.setSwap(self.shuffle_sequence)
         
     def swap(self, _input):
         if type(_input) is str:
@@ -137,9 +157,8 @@ class Rotor(Pipeline):
         self.carry = 1
         
         # 設置 self.addtion
-        self.temp_sequence = self.origin_sequence.copy()
-        random.shuffle(self.temp_sequence)
-        self.setSwap(self.temp_sequence)
+        self.defaultShuffle()
+        self.setSwap(self.shuffle_sequence)
         
     def swap(self, _input, _direction):
         if type(_input) is str:
@@ -242,7 +261,7 @@ def reflectorTest():
     _code = "Hello"    
     _reflector = Reflector(_items)
     print("origin:    ", _reflector.origin_sequence)
-    print("reflector: ", _reflector.temp_sequence)
+    print("reflector: ", _reflector.shuffle_sequence)
     print("forward:   ", _reflector.forward)
     print("backward:  ", _reflector.backward)
     for i in _code:
@@ -255,10 +274,10 @@ def rotorTest():
     _items = ['r', 'd', 'e', 'H', 'W', 'o', 'l']
     _code = "Hello"
     
-    _rotor = Rotor(1, _items)
-    print("origin:", _rotor.origin_sequence)
-    print("temp_sequence:", _rotor.temp_sequence)
-    print("forward:", _rotor.forward)
+    _rotor = Rotor(0, _items)
+    print("origin:  ", _rotor.origin_sequence)
+    print("shuffle: ", _rotor.shuffle_sequence)
+    print("forward: ", _rotor.forward)
     print("backward:", _rotor.backward)
     print("="*30)
     
@@ -299,7 +318,12 @@ def enigmaTest2():
     _enigma = Enigma(_items)
     _rotor = Rotor(0, _items)
     _enigma.add(_rotor)
-    _enigma.compile_()    
+    _enigma.compile_()
+    print("origin:   ", _rotor.origin_sequence)
+    print("forward:  ", _rotor.forward)
+    print("reflector:", _enigma.reflector.forward)
+    print("backward: ", _rotor.backward)
+    
     _encode = _enigma.swap(_code)
     print("encode:", _encode)
         
@@ -309,7 +333,7 @@ def enigmaTest2():
     
 
 if __name__ == "__main__":
-#     reflectorTest()
+#    reflectorTest()
 #    rotorTest()
 #    enigmaTest()
     enigmaTest2()
