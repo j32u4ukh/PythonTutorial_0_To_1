@@ -5,6 +5,7 @@ Created on Wed Sep 18 21:31:23 2019
 @author: j32u4ukh
 """
 import random
+from enum import Enum
 
 class Pipeline:
     def __init__(self):
@@ -136,7 +137,7 @@ class Reflector(Pipeline):
         self.defaultShuffle()
         self.setSwap(self.shuffle_sequence)
         
-    def swap(self, _input):
+    def forwardSwap(self, _input):
         if type(_input) is str:
             _input = self.getIndex(_input)
             
@@ -144,6 +145,17 @@ class Reflector(Pipeline):
         
         print("[reflector]from:{}, to:{}".format(_input, _output))
         
+        return self.getChar(_output)
+    
+    def backwardSwap(self, _input):
+        if type(_input) is str:
+            _input = self.getIndex(_input)
+            
+        _output = _input + self.backward[_input]
+        print("[reflector]from:{}, to:{}".format(_input, _output))
+        
+#        print("[rotor]out_index:{}, output:{}".format(_output,
+#              self.origin_sequence[_output]))
         return self.getChar(_output)
 
 
@@ -160,21 +172,21 @@ class Rotor(Pipeline):
         self.defaultShuffle()
         self.setSwap(self.shuffle_sequence)
         
-    def swap(self, _input, _direction):
-        if type(_input) is str:
-            _input = self.getIndex(_input)
-        
-        _swap_index = _input + self.pointer
-        if self.length <= _swap_index:
-            _swap_index %= self.length
-            
-        _output = _swap_index + _direction[_swap_index]
-        print("[rotor]from:{}, pointer:{}, swap_index:{}, to:{}".format(_input, 
-              self.pointer, _swap_index, _output))
-        
+#    def swap(self, _input, _direction):
+#        if type(_input) is str:
+#            _input = self.getIndex(_input)
+#        
+#        _swap_index = _input + self.pointer
+#        if self.length <= _swap_index:
+#            _swap_index %= self.length
+#            
+#        _output = _swap_index + _direction[_swap_index]
+#        print("[rotor]from:{}, pointer:{}, swap_index:{}, to:{}".format(_input, 
+#              self.pointer, _swap_index, _output))
+#        
 #        print("[rotor]out_index:{}, output:{}".format(_output,
 #              self.origin_sequence[_output]))
-        return self.getChar(_output)
+#        return self.getChar(_output)
         
     def forwardSwap(self, _input):
         if type(_input) is str:
@@ -210,12 +222,16 @@ class Rotor(Pipeline):
     def setCarry(self, _carry):
         self.carry = _carry
 
-
-class Enigma:
-    def __init__(self, _items):
+class Direction(Enum):
+    Forward = "forward"
+    Backward = "backward"
+        
+class Enigma:        
+    def __init__(self, _items, _direction):
         self.items = _items
         self.rotors = []
         self.reflector = Reflector(self.items)
+        self.direction = _direction
         
     def add(self, _rotor):
         assert type(_rotor) is Rotor, "請添加旋轉盤"
@@ -228,8 +244,14 @@ class Enigma:
                 continue
             else:
                 self.rotors[_r].carry = self.rotors[_r - 1].carry * self.rotors[_r].length
-        
+                
     def swap(self, _input):
+        if self.direction is Direction.Forward:
+            return self.forwardSwap(_input)
+        else:
+            return self.backwardSwap(_input)
+        
+    def forwardSwap(self, _input):
         _output = ""
         _rotor_num = len(self.rotors)
         for _index, _char in enumerate(_input):
@@ -238,7 +260,31 @@ class Enigma:
                 _char = self.rotors[_r].forwardSwap(_char)
                 
             # Reflector
-            _char = self.reflector.swap(_char)
+            _char = self.reflector.forwardSwap(_char)
+            
+            # Back propagation
+            for _r in range(_rotor_num - 1, -1, -1):
+                _char = self.rotors[_r].backwardSwap(_char)
+            
+            # checkRotate
+            for _r in range(_rotor_num):
+                self.rotors[_r].checkRotate(_index + 1)
+                
+            _output += _char
+            print("-"*30)
+        
+        return _output
+    
+    def backwardSwap(self, _input):
+        _output = ""
+        _rotor_num = len(self.rotors)
+        for _index, _char in enumerate(_input):
+            # Forward propagation
+            for _r in range(_rotor_num):
+                _char = self.rotors[_r].forwardSwap(_char)
+                
+            # Reflector
+            _char = self.reflector.backwardSwap(_char)
             
             # Back propagation
             for _r in range(_rotor_num - 1, -1, -1):
@@ -304,7 +350,8 @@ def enigmaTest():
     _enigma.compile_()
     print("origin:   ", _rotor.origin_sequence)
     print("forward:  ", _rotor.forward)
-    print("reflector:", _enigma.reflector.forward)
+    print("reflector.forward:", _enigma.reflector.forward)
+    print("reflector.backward:", _enigma.reflector.backward)
     print("backward: ", _rotor.backward)
     
     encode = _enigma.swap(_code)
@@ -315,18 +362,20 @@ def enigmaTest2():
     _items = ['r', 'd', 'e', 'H', 'W', 'o', 'l']
     _code = "ell"
     
-    _enigma = Enigma(_items)
+    _enigma = Enigma(_items, Direction.Forward)
     _rotor = Rotor(0, _items)
     _enigma.add(_rotor)
     _enigma.compile_()
-    print("origin:   ", _rotor.origin_sequence)
-    print("forward:  ", _rotor.forward)
-    print("reflector:", _enigma.reflector.forward)
-    print("backward: ", _rotor.backward)
+    print("origin:      ", _rotor.origin_sequence)
+    print("forward:     ", _rotor.forward)
+    print("[f]reflector:", _enigma.reflector.forward)
+    print("[b]reflector:", _enigma.reflector.backward)
+    print("backward:    ", _rotor.backward)
     
     _encode = _enigma.swap(_code)
     print("encode:", _encode)
-        
+    
+    _enigma.direction = Direction.Backward
     _enigma.rotors[0].pointer = 0
     _decode = _enigma.swap(_encode)
     print("decode:", _decode)

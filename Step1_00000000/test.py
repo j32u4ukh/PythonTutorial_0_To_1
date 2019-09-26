@@ -4,6 +4,7 @@ Created on Wed Sep 18 21:57:00 2019
 
 @author: j32u4ukh
 """
+import random
 import numpy as np
 
 def numberASCII():
@@ -93,9 +94,12 @@ if __name__ == "__main__":
     # sixQuotationMarksTest()
     # chineseTest()
     # japaneseTest()
-    array = [1, 2, 3, 4, 5, 6]
-    shuffle_array = shuffleTest(array)
-    print(array)
-    print(shuffle_array)
+    
+    r = random.random    
+    for i in range(10):
+        array = [1, 2, 3, 4, 5, 6]
+        random.seed(7)
+        random.shuffle(array, random=r)
+        print(array)
         
         
