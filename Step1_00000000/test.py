@@ -86,6 +86,19 @@ def shuffleTest(_array):
         _shuffle_array[_length] = _array[_length]
             
     return _shuffle_array
+
+
+class Father:
+    def __init__(self):
+        pass
+    def go(self):
+        print("go")
+        
+class Son(Father):
+    def __init__(self):
+        super().__init__()
+    def go(self):
+        print("stay")
     
 
 if __name__ == "__main__":
@@ -95,11 +108,6 @@ if __name__ == "__main__":
     # chineseTest()
     # japaneseTest()
     
-    r = random.random    
-    for i in range(10):
-        array = [1, 2, 3, 4, 5, 6]
-        random.seed(7)
-        random.shuffle(array, random=r)
-        print(array)
-        
+    son = Son()
+    son.go()
         
