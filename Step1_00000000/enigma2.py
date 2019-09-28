@@ -180,6 +180,7 @@ class Rotor(Pipeline):
                 _swap_index %= self.length
             
         _output = _swap_index + self.forward[_swap_index]
+#        _output = _input + self.forward[_swap_index]
         print("[forward]from:{}, pointer:{}, swap_index:{}, to:{}".format(_input, 
               self.pointer, _swap_index, _output))
         
