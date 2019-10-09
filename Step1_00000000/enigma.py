@@ -183,7 +183,15 @@ class Pipeline:
         """
         for i in range(self.length):
             _back_index = i + self.forward[i]                
-            self.backward[_back_index] = -self.forward[i] 
+            self.backward[_back_index] = -self.forward[i]
+            
+        """
+        self.forward 和 self.backward 中儲存的值代表的意義請在此理解清楚，可以畫在
+        紙上或執行函式 wardTest()，幫助你思考。當中的值本文中會稱為'元素轉換規則'或
+        '偏移值'，請記得這兩個詞的意義。
+        
+        第 0 個元素變為第 3 個元素，'偏移值'為 +3；第 7 個元素變為第 2 個元素，'偏移值'為 -5。
+        """
 
 
 """
@@ -237,41 +245,94 @@ class Reflector(Pipeline):
         print("[r-o]:{}".format(_output_sequense))
 
 
+"""
+旋轉盤的說明請看 PythonTutorial_0_To_1/Enigma/。
+"""
 class Rotor(Pipeline):
     def __init__(self, _items, _pointer):
+        """
+        Rotor 繼承 Pipeline，Pipeline 做得到的 Rotor 一樣可以。
+        super().__init__(_items) 執行了 Pipeline 當中的 __init__()，
+        並給予參數 _items。
+        """
         super().__init__(_items)
+        
+        """
+        self.pointer 相當於採用第幾組元素轉換規則。
+        """
         self.pointer = _pointer
         
-        # 進位值，每加密多少次更改一次加密組合，便執行 pointer + 1
+        """
+        進位值，每加密多少次'更改一次加密組合' = pointer + 1 = 旋轉盤轉動一次。
+        """
         self.carry = 1
-        # 紀錄函式被呼叫次數，用於判斷是否需要進位
-        self.counter = 0
         
+        """
+        紀錄加密/解密次數，用於判斷是否需要進位。
+        """
+        self.counter = 0
+    
+    """
+    '輸入往反射板'方向的元素轉換。
+    """
     def forwardSwap(self, _input):
+        """
+        加密/解密次數 +1。
+        """
         self.counter += 1
         
+        """
+        取得輸入元素在 self.origin_sequence 當中的索引值。
+        """
         _index = self.getIndex(_input)
         
+        
+        """
+        下方兩行應一起理解，_index + self.forward[_swap_index] 表示
+        原本的元素索引值變成新的索引值，例如：0 → 3；7 → 2，達到元素轉換的效果。
+        
+        原本元素在陣列中第幾個位置(_index)，就會採用 self.forward 中第幾個位置
+        的'偏移值'，但這裡又加上 self.pointer，本次的轉換就會採用 self.forward 中
+        第 (_index + self.pointer) 個位置的'偏移值'，後面的'% self.length'是在
+        確保前面數值不會超過陣列範圍。        
+        """
         _swap_index = (_index + self.pointer) % self.length
-            
-        # 使用第 _swap_index 組加密模式
         _output = _index + self.forward[_swap_index]
         
+        """
+        _index + self.forward[_swap_index] 後的 _output 或許會超過陣列範圍，透過
+        self.getChar回傳元素，確保它不會超過陣列範圍。
+        """
         return self.getChar(_output)
     
+    """
+    '反射板往輸出'方向的元素轉換規則。
+    """
     def backwardSwap(self, _input):
+        """
+        取得輸入元素在 self.origin_sequence 當中的索引值。
+        """
         _index = self.getIndex(_input)
         
-        # 使用第 _swap_index 組加密模式
-        _swap_index = (_index + self.pointer) % self.length
-            
+        """
+        基本上和 forwardSwap 相同，但'偏移值'的來源從 self.forward 變成 self.backward。
+        """
+        _swap_index = (_index + self.pointer) % self.length            
         _output = _index + self.backward[_swap_index]
         
         return self.getChar(_output)
     
-    def checkRotate(self):        
+    """
+    檢查是否需要轉動旋轉盤，即 self.pointer += 1。
+    """
+    def checkRotate(self):
+        """
+        加密/解密次數(self.counter) 被 進位值(self.carry) 整除，轉動旋轉盤一次。        
+        """
         if self.counter % self.carry == 0:
-            # 轉動旋轉盤，改變加密組合
+            """
+            轉動旋轉盤，改變元素轉換規則。
+            """
             self.pointer += 1
             self.pointer = self.pointer % self.length
             
@@ -338,6 +399,37 @@ class Enigma:
                 self.rotors[_r].pointer = 0
 
 
+def wardTest():
+    _items1 =  ['H', 'e', 'l', 'o', 'W', 'r', 'd', 's']
+    _items2 = ['H', 'd', 's', 'e', 'l', 'o', 'W', 'r']
+    _pipeline1 = Pipeline(_items1)
+    _pipeline2 = Pipeline(_items2)
+    
+    """
+    將元素順序進行排列，確保不同旋轉盤或反射板有相同的'參考順序'。
+    """
+    print("self.origin_sequence1:", _pipeline1.origin_sequence)
+    print("self.origin_sequence2:", _pipeline2.origin_sequence)
+    
+    """
+    順序與輸入時相同。
+    """
+    print("self.shuffle_sequence1:", _pipeline1.shuffle_sequence)
+    print("self.shuffle_sequence2:", _pipeline2.shuffle_sequence)
+    
+    """
+    _pipeline1 的 forward 和 backward 元素轉換
+    """
+    print("self.forward1:", _pipeline1.forward)
+    print("self.backward1:", _pipeline1.backward)
+    
+    """
+    _pipeline2 的 forward 和 backward 元素轉換
+    """
+    print("self.forward2:", _pipeline2.forward)
+    print("self.backward2:", _pipeline2.backward)
+    
+    
 def reflectorTest():
     items = ['H', 'e', 'l', 'o', 'W', 'r', 'd', 's']
     reflactor = Reflector(items)
@@ -508,8 +600,9 @@ def argsTest(*args):
 
     
 if __name__ == "__main__":
+    wardTest()
 #    reflectorTest()
 #    rotorTest()
 #    rotorTest2()
 #    enigmaTest()
-    enigmaTest2()
+#    enigmaTest2()
