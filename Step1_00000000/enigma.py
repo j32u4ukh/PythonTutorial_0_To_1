@@ -349,53 +349,114 @@ class Rotor(Pipeline):
         print("[t-f]:{}".format(_forward_output))
         print("[t-b]:{}".format(_backward_output))
 
-        
+
+"""
+依照需求添加旋轉盤，由於反射板的設計，元素數量必須為偶數個。
+"""
 class Enigma:        
     def __init__(self, _items):
+        """
+        建立 Enigma 的同時，會利用傳入的 _items 自動建立反射板。
+        """
         self.reflector = Reflector(_items)
-        self.rotors = []
         
+        """
+        依序存放旋轉盤。
+        """
+        self.rotors = []
+    
+    """
+    添加旋轉盤。
+    """    
     def add(self, _rotor):
         assert type(_rotor) is Rotor, "請添加旋轉盤"
-        self.rotors.append(_rotor)
         
+        """
+        將旋轉盤存放進 self.rotors 陣列。
+        """
+        self.rotors.append(_rotor)
+    
+    """
+    添加完旋轉盤後，要進行編譯，形成右邊旋轉盤轉1圈，左邊旋轉盤轉1次。
+    
+    compile 為 Python 的內建函數，因此這個函示名稱最後面加了底線以作區別。
+    """    
     def compile_(self):
         _rotor_num = len(self.rotors)
-        for _r in range(_rotor_num):
+        for _r in range(_rotor_num):            
             if _r == 0:
+                """
+                第0個旋轉盤不做處理，直接繼續下一個循環。
+                """
                 continue
             else:
+                """
+                後面的旋轉盤'進位值 carry' = 前面旋轉盤的'進位值 carry' 乘以 旋轉盤一圈有幾個元素。
+                """
                 self.rotors[_r].carry = self.rotors[_r - 1].carry * self.rotors[_r].length
-                
+    
+    """
+    使用這個函式，將明文加密。
+    """            
     def swap(self, _input):
         _output = ""
         _rotor_num = len(self.rotors)
-        for _index, _char in enumerate(_input):
-            # Forward propagation
+        
+        """
+        將句子或單字一次一個元素進行循環。
+        """
+        for _char in _input:
+            """
+            元素依序從輸入，經過數個反射板。
+            """
             for _r in range(_rotor_num):
                 _char = self.rotors[_r].forwardSwap(_char)
                 
-            # Reflector
+            """
+            元素被反射板轉換成另一個元素。
+            """
             _char = self.reflector.swap(_char)
             
-            # Back propagation
+            """
+            元素依序從反射板，再次經過數個反射板，但這次的順序是反過來的。
+            """
             for _r in range(_rotor_num - 1, -1, -1):
                 _char = self.rotors[_r].backwardSwap(_char)
             
-            # checkRotate
+            """
+            每加密一個元素之後，就檢查是否需要轉動旋轉盤。
+            """
             for _r in range(_rotor_num):
                 self.rotors[_r].checkRotate()
-                
+            
+            """
+            將加密後的元素，加入 _output。
+            """
             _output += _char
         
+        """
+        全部元素被加密後都加入 _output，返回被加密後的結果。
+        """
         return _output
     
+    """
+    旋轉盤加密後會旋轉，因此與最初的位置已大不相同，透過此函式重新設置個個旋轉盤的初始位置。
+    """
     def resetRotors(self, *args):
         for _r in range(len(self.rotors)):
+            """
+            counter 在記錄加密/解密次數，因為重新設置，所以 counter = 0。
+            """
             self.rotors[_r].counter = 0
             try:
+                """
+                將第 _r 個旋轉盤初始位置設為 args 的第 _r 個值。
+                """
                 self.rotors[_r].pointer = args[_r]
             except:
+                """
+                若發生參數比旋轉盤數量少，將剩下的旋轉盤初始位置設為 0。
+                """
                 self.rotors[_r].pointer = 0
 
 
@@ -567,29 +628,12 @@ def enigmaTest2():
     _enigma.add(_rotor3)
     _enigma.add(_rotor4)
     _enigma.compile_()
-    
-    _encode = ""
-    for i in _word:
-        _encode += _enigma.swap(i)
         
+    _encode = _enigma.swap(_word)        
     print("encode:", _encode)
     
-#    del _enigma
-#    
-#    _enigma = Enigma(_items)
-#    _rotor1 = Rotor(_items1, 4)
-#    _rotor2 = Rotor(_items2, 7)
-#    _rotor3 = Rotor(_items3, 3)
-#    _enigma.add(_rotor1)
-#    _enigma.add(_rotor2)
-#    _enigma.add(_rotor3)
-#    _enigma.compile_()
-    
-    _enigma.resetRotors(4, 7, 3)
-    
-    _decode = ""
-    for i in _encode:
-        _decode += _enigma.swap(i) 
+    _enigma.resetRotors(4, 7, 3, 9)
+    _decode = _enigma.swap(_encode)
         
     print("decode:", _decode)
     
@@ -600,9 +644,9 @@ def argsTest(*args):
 
     
 if __name__ == "__main__":
-    wardTest()
+#    wardTest()
 #    reflectorTest()
 #    rotorTest()
 #    rotorTest2()
 #    enigmaTest()
-#    enigmaTest2()
+    enigmaTest2()
