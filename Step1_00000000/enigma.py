@@ -249,7 +249,7 @@ class Reflector(Pipeline):
 旋轉盤的說明請看 PythonTutorial_0_To_1/Enigma/。
 """
 class Rotor(Pipeline):
-    def __init__(self, _items, _pointer):
+    def __init__(self, _items, _pointer=0):
         """
         Rotor 繼承 Pipeline，Pipeline 做得到的 Rotor 一樣可以。
         super().__init__(_items) 執行了 Pipeline 當中的 __init__()，
@@ -442,7 +442,7 @@ class Enigma:
     """
     旋轉盤加密後會旋轉，因此與最初的位置已大不相同，透過此函式重新設置個個旋轉盤的初始位置。
     """
-    def resetRotors(self, *args):
+    def setRotors(self, *args):
         for _r in range(len(self.rotors)):
             """
             counter 在記錄加密/解密次數，因為重新設置，所以 counter = 0。
@@ -632,7 +632,7 @@ def enigmaTest2():
     _encode = _enigma.swap(_word)        
     print("encode:", _encode)
     
-    _enigma.resetRotors(4, 7, 3, 9)
+    _enigma.setRotors(4, 7, 3, 9)
     _decode = _enigma.swap(_encode)
         
     print("decode:", _decode)
