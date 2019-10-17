@@ -12,6 +12,7 @@ operator1:print, len,
 variable1：int, str, variable, type()
 variable2：+-*/%, +=, -=, ==, ..., variable_name
 operator1_5:True, False, and, or, not
+operator1_8:if elif else
 variable3：二進制、十進制、二進制應用
 array1：append(), sort(), copy()；id()
 operator2:ord('a') & chr(97)：ASCII 數值與符號的轉換, int(), float()
