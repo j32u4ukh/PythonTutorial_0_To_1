@@ -9,22 +9,22 @@ from enigma import Enigma, Rotor
 
 """
 operator1:print, len, 
-variable1：int, str, variable, type()
-variable2：+-*/%, +=, -=, ==, ..., variable_name
+variable1:int, str, variable, type()
+variable2:+-*/%, +=, -=, ==, ..., variable_name
 operator1_5:True, False, and, or, not
 operator1_8:if elif else
-variable3：二進制、十進制、二進制應用
-array1：append(), sort(), copy()；id()
-operator2:ord('a') & chr(97)：ASCII 數值與符號的轉換, int(), float()
+variable3:二進制、十進制、二進制應用
+array1:append(), sort(), copy()；索引值；id()
+operator2:ord('a') & chr(97):ASCII 數值與符號的轉換, int(), float()
 operator3:for, while loop, break, str.format(), continue
 array2:[i for i in range]
 operator4:try, except, Error
-def1：function, return, _variable_name
-def2：assert, 預設值, *args
-panda：將 rotors.xlsx 和 rotors_status.xlsx 建立並儲存成檔案
-class1：(Object-oriented,OO)
-class2：inherit, super()
-class3：if __name__ == "__main__":
+def1:function, return, _variable_name
+def2:assert, 預設值, *args
+panda:將 rotors.xlsx 和 rotors_status.xlsx 建立並儲存成檔案
+class1:(Object-oriented,OO)
+class2:inherit, super()
+class3:if __name__ == "__main__":
 
      
 if, else
