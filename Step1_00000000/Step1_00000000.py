@@ -16,9 +16,10 @@ operator1_8:if elif else
 variable3:二進制、十進制、二進制應用
 array1:append(), sort(), copy()；索引值；id()
 operator2:ord('a') & chr(97):ASCII 數值與符號的轉換, int(), float()
-operator3:for, while loop, break, str.format(), continue
+operator3:for, while, str.format()
+operator4:break, continue
 array2:[i for i in range]
-operator4:try, except, Error
+operator5:try, except, Error
 def1:function, return, _variable_name
 def2:assert, 預設值, *args
 panda:將 rotors.xlsx 和 rotors_status.xlsx 建立並儲存成檔案
