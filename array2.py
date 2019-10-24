@@ -36,5 +36,7 @@ print(array3.index(6))  # 2
 
 """
 萬一我使用了不存在陣列中的數值時，會發生什麼呢？答案是報錯，告訴我們發生了 ValueError。
+
+至於什麼是 ValueError 在後面的教學當中會再提到，知道這是一種程式上的錯誤就好了。
 """
 print(array3.index(7))  # ValueError: 7 is not in list
