@@ -22,6 +22,7 @@ array2:[i for i in range]
 operator5:try, except, Error
 def1:function, return, _variable_name
 def2:assert, 預設值, *args
+operator6:import, from, pip
 panda:將 rotors.xlsx 和 rotors_status.xlsx 建立並儲存成檔案
 class1:(Object-oriented,OO)
 class2:inherit, super()
