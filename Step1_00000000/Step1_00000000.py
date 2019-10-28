@@ -19,8 +19,8 @@ operator2:ord('a') & chr(97):ASCII 數值與符號的轉換, int(), float()
 operator3:for, while, str.format()
 operator4:break, continue
 array2:[i for i in range]
-dict1:建立、新增、取值
 operator5:try, except, Error
+dict1:建立、新增、取值
 def1:function, return, _variable_name
 def2:assert, 預設值, *args
 operator6:import, from, pip
