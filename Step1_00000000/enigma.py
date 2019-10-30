@@ -89,7 +89,7 @@ class Pipeline:
             返回 _char 在 self.origin_sequence 中的索引值，若不在當中則產生 ValueError。
             """
             return self.origin_sequence.index(_char)        
-        except IndexError:
+        except ValueError:
             """
             _char 不在 self.origin_sequence 當中，則返回 -1。尚未處理返回 -1時的情形。
             """
