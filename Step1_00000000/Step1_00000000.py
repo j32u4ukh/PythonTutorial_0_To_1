@@ -26,8 +26,8 @@ def2:assert, 預設值, *args
 operator6:import, from, pip
 pandas:將 rotors.xlsx 和 rotors_status.xlsx 建立並儲存成檔案
 class1:(Object-oriented,OO)
-class2:inherit, super()
-class3:if __name__ == "__main__":
+class2:inherit, super(), Reflector
+class3:if __name__ == "__main__":, Rotor
 
      
 if, else
