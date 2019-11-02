@@ -20,7 +20,7 @@ Created on Wed Oct 16 20:48:00 2019
 以智慧型手機為例，就會是"class 智慧型手機(電話):"，以下示範繼承的效果，可以與之前在教
 物件時的程式碼做比較。
 """
-from random import shuffle
+
 
 class Phone:
      def __init__(self, _phone_number):
@@ -64,6 +64,8 @@ smart_phone1.call(smart_phone2.getPhoneNumber())
 
 下面以普通手機為例，因為上面已經定義過智慧型手機了。
 """
+
+
 class MobilePhone(Phone):
      def __init__(self, _width, _height, _phone_number):
           self.width = _width
@@ -104,31 +106,36 @@ mobile_phone1.call(mobile_phone2.getPhoneNumber())
 以下將實作"反射板"(Reflector)繼承 Pipeline ， Reflector 是 Enigma 加密過程中的一環
 ，會將 Enigma 所包含的元素兩兩交換。
 """
+
+
 class Pipeline:
     def __init__(self, _items): 
         self.origin_sequence = _items.copy()
         self.origin_sequence.sort()
         
         self.shuffle_sequence = _items.copy()
-        shuffle(self.shuffle_sequence)        
-        
         self.length = len(_items)
-        
+
     def getIndex(self, _char):        
         try:
             return self.origin_sequence.index(_char)        
         except ValueError:
             return -1
-
+    
     def getChar(self, _index):
         if _index < 0:
             _index += self.length
-        
+
         if self.length <= _index:
             _index %= self.length
         
         return self.origin_sequence[_index]
    
+
+"""
+反射板的說明請看 PythonTutorial_0_To_1/Enigma/。
+"""
+
 
 class Reflector(Pipeline):
     def __init__(self, _items):
@@ -143,7 +150,7 @@ class Reflector(Pipeline):
     Reflector 的設計為兩兩互換，這裡讓第 0 和第 1 互換，第 2 和第 3 互換，以此類推。
     """
     def swap(self, _input):
-        _index = self.getIndex(_input)
+        _index = self.shuffle_sequence.index(_input)
         
         """_index & 1
         採用二進制規則來判斷奇偶，結果為 0 是偶數，結果為 1 是奇數，例如：
@@ -160,12 +167,12 @@ class Reflector(Pipeline):
             """
             奇數：和前一個元素互換。
             """
-            _char = self.getChar(_index - 1)
+            _char = self.shuffle_sequence[_index - 1]
         else:
             """
             偶數：和後一個元素互換。
             """
-            _char = self.getChar(_index + 1)
+            _char = self.shuffle_sequence[_index + 1]
             
         return _char
    

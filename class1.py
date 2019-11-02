@@ -176,7 +176,6 @@ class Pipeline:
         （へんかん）ルール」を建立する。
         """
         self.shuffle_sequence = _items.copy()
-        # shuffle(self.shuffle_sequence)        
         
         """
         self.length 儲存陣列長度。
@@ -220,8 +219,7 @@ class Pipeline:
         """
         返回調整後的索引值指向的陣列中的字元。
         """
-        return self.origin_sequence[_index]
-   
+        return self.origin_sequence[_index]   
 
 items = [randint(0, 5) for i in range(3)]
 print("origin items:", items)

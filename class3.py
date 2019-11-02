@@ -28,9 +28,58 @@ class Pipeline:
         self.origin_sequence = _items.copy()
         self.origin_sequence.sort()
         
-        self.shuffle_sequence = _items.copy()        
-
+        self.shuffle_sequence = _items.copy()
         self.length = len(_items)
+
+    def getIndex(self, _char):        
+        try:
+            return self.origin_sequence.index(_char)        
+        except ValueError:
+            return -1
+    
+    def getChar(self, _index):
+        if _index < 0:
+            _index += self.length
+
+        if self.length <= _index:
+            _index %= self.length
+        
+        return self.origin_sequence[_index]
+        
+
+"""
+旋轉盤的說明請看 PythonTutorial_0_To_1/Enigma/。
+"""
+
+
+class Rotor(Pipeline):
+    def __init__(self, _items, _pointer=0):
+        """
+        Rotor 繼承 Pipeline，Pipeline 做得到的 Rotor 一樣可以。
+        super().__init__(_items) 執行了 Pipeline 當中的 __init__()，
+        並給予參數 _items。
+        """
+        super().__init__(_items)
+        
+        """
+        self.pointer 指向 self.forward 和 self.backward 的位置，
+        當 self.pointer + 1，代表換下一組元素轉換規則，模擬旋轉盤在旋轉的樣子。
+        
+        self.pointer　は　self.forward と self.backward　の場所（ばしょ）を指して。
+        つまり、self.pointer + 1　のとき、「要素変換ルール」は次のセットに変える。
+        スクランブラーが回転（かいてん）していると同じの効果（こうか）のためです。
+        """
+        self.pointer = _pointer
+        
+        """
+        進位值，每加密多少次'更改一次加密組合' = pointer + 1 = 旋轉盤轉動一次。
+        """
+        self.carry = 1
+        
+        """
+        紀錄加密/解密次數，用於判斷是否需要進位。
+        """
+        self.counter = 0
         
         """
         self.forward 儲存'輸入往反射板'方向的元素轉換規則。
@@ -44,17 +93,7 @@ class Pipeline:
         
         self.forward　は「リフレクターから輸出へ」の「要素変換ルール」。
         """
-        self.backward = []
-        
-        """
-        self.pointer 指向 self.forward 和 self.backward 的位置，
-        當 self.pointer + 1，代表換下一組元素轉換規則，模擬旋轉盤在旋轉的樣子。
-        
-        self.pointer　は　self.forward と self.backward　の場所（ばしょ）を指して。
-        つまり、self.pointer + 1　のとき、「要素変換ルール」は次のセットに変える。
-        スクランブラーが回転（かいてん）していると同じの効果（こうか）のためです。
-        """
-        self.pointer = 0
+        self.backward = []        
         
         """
         初始化 self.forward 和 self.backward 的元素轉換規則。
@@ -62,22 +101,7 @@ class Pipeline:
         self.forward と self.backward　の「要素変換ルール」を初期化（しょきか）する。
         """
         self.setSwap()
-    
-    def getIndex(self, _char):        
-        try:
-            return self.origin_sequence.index(_char)        
-        except ValueError:
-            return -1
-    
-    def getChar(self, _index):
-        if _index < 0:
-            _index += self.length
         
-        if self.length <= _index:
-            _index %= self.length
-        
-        return self.origin_sequence[_index]
-    
     """
     根據建立物件時傳入的 _items 來形成元素轉換規則。
     
@@ -152,34 +176,6 @@ class Pipeline:
         
         第 0 個元素變為第 3 個元素，'偏移值'為 +3；第 7 個元素變為第 2 個元素，'偏移值'為 -5。
         """
-        
-
-"""
-旋轉盤的說明請看 PythonTutorial_0_To_1/Enigma/。
-"""
-class Rotor(Pipeline):
-    def __init__(self, _items, _pointer=0):
-        """
-        Rotor 繼承 Pipeline，Pipeline 做得到的 Rotor 一樣可以。
-        super().__init__(_items) 執行了 Pipeline 當中的 __init__()，
-        並給予參數 _items。
-        """
-        super().__init__(_items)
-        
-        """
-        self.pointer 相當於採用第幾組元素轉換規則。
-        """
-        self.pointer = _pointer
-        
-        """
-        進位值，每加密多少次'更改一次加密組合' = pointer + 1 = 旋轉盤轉動一次。
-        """
-        self.carry = 1
-        
-        """
-        紀錄加密/解密次數，用於判斷是否需要進位。
-        """
-        self.counter = 0
     
     """
     '輸入往反射板'方向的元素轉換。
