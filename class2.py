@@ -101,8 +101,8 @@ mobile_phone1.call(mobile_phone2.getPhoneNumber())
 下面我將以 Enigma 中使用到的物件為例，讓各位看看實際使用到繼承的情況，因此需要對物件
 的內涵稍作說明，細節請參考 PythonTutorial_0_To_1/Enigma/。
 
-以下將實作 Reflector 繼承 Pipeline ， Reflector 是 Enigma 加密過程中的一環，會將 
-Enigma 所包含的元素兩兩交換。
+以下將實作"反射板"(Reflector)繼承 Pipeline ， Reflector 是 Enigma 加密過程中的一環
+，會將 Enigma 所包含的元素兩兩交換。
 """
 class Pipeline:
     def __init__(self, _items): 

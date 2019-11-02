@@ -176,7 +176,7 @@ class Pipeline:
         （へんかん）ルール」を建立する。
         """
         self.shuffle_sequence = _items.copy()
-        shuffle(self.shuffle_sequence)        
+        # shuffle(self.shuffle_sequence)        
         
         """
         self.length 儲存陣列長度。

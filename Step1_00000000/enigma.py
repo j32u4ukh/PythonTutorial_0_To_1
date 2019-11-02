@@ -118,10 +118,9 @@ class Pipeline:
         return self.origin_sequence[_index]
     
     """
-    根據建立物件時傳入的 _items 來形成元素轉換規則，細節請看 PythonTutorial_0_To_1/Enigma/。
+    根據建立物件時傳入的 _items 來形成元素轉換規則。
     
     オブジェクトを建立している時の　_items　で、「要素変換ルール」を決める。
-    詳しくな紹介なら、PythonTutorial_0_To_1/Enigma/　を見てください。
     """    
     def setSwap(self):
         """
