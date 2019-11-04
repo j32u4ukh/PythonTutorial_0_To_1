@@ -103,9 +103,66 @@ taiwan_element = getTaiwanElement()
 japan_element = getJapanElement()
 english_element = getEnglishElement()
 element = taiwan_element + japan_element + english_element
+"""
+shuffleElements 中的 temp 透過 element.copy() 取得，因此 element 本身的順序並沒有
+被打亂。每次回傳的都是由原本的 element 的順序去進行打亂。
+"""
+
+
+def shuffleElements(_element):
+     temp = _element.copy()
+     shuffle(temp)
+     return temp
+
+
+I = shuffleElements(element)
+II = shuffleElements(element)
+III = shuffleElements(element)
+IV = shuffleElements(element)
+V = shuffleElements(element)
 
 """
-這個表格將利用日期作為每一行的名稱，因此下面簡單示範 datetime 的使用方式。
+I, II, III, IV, V 是羅馬數字的一到五，分別代表五個旋轉盤，擁有著"元素相同，但順序
+不同"的五個陣列，用於之後存取。
+
+後面將會把這五個陣列記錄下來，未來使用相同旋轉盤與相同狀態去進行加密解密時，才會有
+一致的結果。
+
+重新建立一個表格，用來存放接下來的數據。由於現在還沒有數據，因此利用 columns 告訴
+pandas 我要建立多少欄位的表格。
+
+若是建立的同時就給予數據， pandas 會自己判斷有多少欄位。
+"""
+rotor_df = pd.DataFrame(columns=[i for i in range(len(element))])
+rotor_df.loc["I"] = I
+rotor_df.loc["II"] = II
+rotor_df.loc["III"] = III
+rotor_df.loc["IV"] = IV
+rotor_df.loc["V"] = V
+
+print(rotor_df.head())
+print(rotor_df.tail())
+
+"""
+這個表格在最後一個課程當中會需要用到，所以這裡利用 to_csv 把它寫成 csv 檔，保存
+在電腦中。括弧內寫的是儲存的檔案(相對)路徑。
+"""
+rotor_df.to_csv("rotors.csv")
+
+"""
+之後如果要再使用這個表格，可以利用 read_csv 根據檔案路徑把資料讀進來。
+
+header=0 與 index_col=0 分別代表了橫向第一行是 header (前面說的 columns) 以及
+縱向第一行是 index(I, II, III, IV, V)
+"""
+read_df = pd.read_csv("rotors.csv", header=0, index_col=0)
+print(read_df.head())
+print(read_df.tail())
+
+"""
+除了三種語言的元素，還需要所謂的狀態值，提供 Enigma 的旋轉盤當作參數使用。
+
+旋轉盤的狀態將隨著日期，每天做變動，因此下面這個表格將利用日期作為每一行的名稱。
 
 datetime 是 Python 在處理日期時間方面的套件之一，利用 datetime.today() 可以取得
 現在的日期與時間。
@@ -125,54 +182,17 @@ current_date = datetime(2019, 11, 1)
 end_date = datetime(2019, 12, 1)
 
 """
-重新建立一個表格，用來存放接下來的數據。由於現在還沒有數據，因此利用 columns 告訴
-pandas 我要建立多少欄位的表格。
-
-若是建立的同時就給予數據， pandas 會自己判斷有多少欄位。
-"""
-df = pd.DataFrame(columns=[i for i in range(len(element))])
-
-"""
-在 current_date 小於 end_date 之前，持續將 current_date 作為行的名稱，打亂後的 
-element_copy 作為數據，加入表格當中。
-
-由於 element_copy 是透過 element.copy() 取得的，因此 element 本身的順序並沒有被打亂。
-
-迴圈最後一行，利用 current_date += timedelta(days=1) 取得下一天的日期，一直重複直到
-current_date 超過 11 月，這樣表格就完成了。
-"""
-while current_date < end_date:
-     element_copy = element.copy()
-     shuffle(element_copy)
-     df.loc[current_date] = element_copy
-     current_date += timedelta(days=1)
-
-print(df.head())
-print(df.tail())
-
-"""
-這個表格在最後一個課程當中會需要用到，所以這裡利用 to_csv 把它寫成 csv 檔，保存
-在電腦中。括弧內寫的是儲存的檔案路徑。
-"""
-df.to_csv("rotors.csv")
-
-"""
-之後如果要再使用這個表格，可以利用 read_csv 根據檔案路徑把資料讀進來。
-"""
-read_df = pd.read_csv("rotors.csv")
-print(read_df.head())
-print(read_df.tail())
-
-"""
-除了三種語言的元素，還需要所謂的狀態值，提供 Enigma 的旋轉盤當作參數使用。
-
-預設為 5 組旋轉盤的狀態，如果有需要可以將 NUM 的數值做修改。
+預設為 5 組旋轉盤的狀態，同樣這裡先告訴 pandas 我要建立 NUM 個欄位，如果有需要可以
+將 NUM 的數值做修改。
 """
 NUM = 5
 status_df = pd.DataFrame(columns=[i for i in range(NUM)])
 
-current_date = datetime(2019, 11, 1)
-end_date = datetime(2019, 12, 1)
+"""
+getStatus 根據陣列長度，產生五個隨機數，分別是五個旋轉盤的狀態值。
+
+狀態值的範圍是 0 到 (陣列長度 - 1)，與陣列的索引值範圍相同。
+"""
 
 
 def getStatus(_element_length):
@@ -183,6 +203,13 @@ def getStatus(_element_length):
           
      return status
 
+"""
+在 current_date 小於 end_date 之前，持續將 current_date 作為行的名稱，五個旋轉盤
+的狀態值 作為數據，加入表格當中。
+
+迴圈最後一行，利用 current_date += timedelta(days=1) 取得"下一天"的日期，一直重複
+直到 current_date 超過 11 月，這樣表格就完成了。
+"""
 element_length = len(element)
 while current_date < end_date:
      status_df.loc[current_date] = getStatus(element_length)
@@ -192,3 +219,19 @@ print(status_df.head())
 print(status_df.tail())
 
 status_df.to_csv("rotors_status.csv")
+
+""""""
+current_date = datetime(2019, 11, 1)
+end_date = datetime(2019, 12, 1)
+
+choose_rotor = pd.DataFrame(columns=[i for i in range(3)])
+rotor_num = ['I', 'II', 'III', 'IV', 'V']
+while current_date < end_date:
+     shuffle(rotor_num)
+     choose_rotor.loc[current_date] = rotor_num[:3]
+     current_date += timedelta(days=1)
+
+print(choose_rotor.head())
+print(choose_rotor.tail())
+
+choose_rotor.to_csv("choose_rotor.csv")

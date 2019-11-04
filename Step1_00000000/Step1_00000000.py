@@ -33,14 +33,36 @@ class3:if __name__ == "__main__":, Rotor
 if, else
 ==
 """
+from datetime import datetime
 
-# rotors.xlsx
-I   = ['H', 'e', 'l', 'o', 'W', 'r', 'd', 's']
-II  = ['H', 'o', 'W', 'r', 'd', 'e', 'l', 's']
-III = ['H', 'd', 's', 'e', 'l', 'o', 'W', 'r']
-IV  = ['r', 'd', 's', 'e', 'H', 'o', 'W', 'l']
-V   = IV.copy()
-V.sort()
+import pandas as pd
+
+
+# rotors.csv
+rotors_df = pd.read_csv("../rotors.csv", header=0, index_col=0)
+choose_rotor_df = pd.read_csv("../choose_rotor.csv", header=0, index_col=0)
+#I   = ['H', 'e', 'l', 'o', 'W', 'r', 'd', 's']
+#II  = ['H', 'o', 'W', 'r', 'd', 'e', 'l', 's']
+#III = ['H', 'd', 's', 'e', 'l', 'o', 'W', 'r']
+#IV  = ['r', 'd', 's', 'e', 'H', 'o', 'W', 'l']
+#V   = IV.copy()
+#V.sort()
+
+#for i in choose_rotor.index:
+#     print(pd.to_datetime(i, format="%Y-%m-%d"))
+
+#I   = rotors.loc['I'].values
+#II  = rotors.loc['II'].values
+#III = rotors.loc['III'].values
+#IV  = rotors.loc['IV'].values
+#V   = rotors.loc['V'].values
+
+today = datetime.today()
+# current_date = datetime(2019, 11, 4)
+current_date = datetime(today.year, today.month, today.day)
+date_index = current_date.strftime("%Y-%m-%d")
+rotors_index = choose_rotor_df.loc[date_index].values
+rotors = [rotors_df.loc['I'].values for r in rotors_index]
 
 items =  ['H', 'e', 'l', 'o', 'W', 'r', 'd', 's']
 items1 = ['H', 'o', 'W', 'r', 'd', 'e', 'l', 's']
@@ -48,27 +70,33 @@ items2 = ['H', 'd', 's', 'e', 'l', 'o', 'W', 'r']
 items3 = ['r', 'd', 's', 'e', 'H', 'o', 'W', 'l']
 items4 = items.copy()
 items4.sort()
-word = "HelloWorld"
+
+items = list(rotors[0].copy())
+items.sort()
+items1 = list(rotors[0])
+items2 = list(rotors[1])
+items3 = list(rotors[2])
+word = "helloworld"
 
 enigma = Enigma(items)
 rotor1 = Rotor(items1)
 rotor2 = Rotor(items2)
 rotor3 = Rotor(items3)
-rotor4 = Rotor(items4)
+#rotor4 = Rotor(items4)
 enigma.add(rotor1)
 enigma.add(rotor2)
 enigma.add(rotor3)
-enigma.add(rotor4)
+#enigma.add(rotor4)
 
 # set rotor after add rotors into enigma
 # rotors_status.xlsx
-enigma.setRotors(9, 5, 2, 7)
+enigma.setRotors(9, 5, 2)
 enigma.compile_()
 
 
 encode = enigma.swap(word)        
 print("encode:", encode)
 
-enigma.setRotors(9, 5, 2, 7)
+enigma.setRotors(9, 5, 2)
 decode = enigma.swap(encode)   
 print("decode:", decode)
