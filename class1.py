@@ -6,7 +6,7 @@ Created on Wed Oct 16 20:47:34 2019
 
 教學大綱：
 1. class：(Object-oriented,OO)
-2. 以 Enigma 中使用到的物件為例
+2. Pipeline
 
 class 又稱為'類別'，是物件導向語言的特色，就像現實中的物品一樣，會有各式各樣的屬性
 以及功能。
@@ -23,7 +23,7 @@ class 當中伴隨著的變數就是上面說的'屬性'，而 class 擁有的�
 最後是冒號，冒號以下便是對這個物件的設定。
 """
 import math
-from random import shuffle
+#from random import shuffle
 from random import randint
 
 class SmartPhone:

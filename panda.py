@@ -14,6 +14,9 @@ Created on Wed Oct 16 20:47:26 2019
 7. as
 8. datetime
 
+9. loc
+10. strftime
+
 這次的課程大量地使用到了之前教的 from 和 import ，課程的目標除了讓各位初步認識
 pandas 這個套件，還要為最終目標的 Enigma 做些準備。
 
@@ -90,7 +93,8 @@ def getJapanElement():
 def getEnglishElement():
      # a ASCII: 97
      # z ASCII: 122
-     _english_element = [chr(i) for i in range(97, 122 + 1)]
+     _english_element = [chr(i) for i in range(65, 90 + 1)]
+     _english_element += [chr(i) for i in range(97, 122 + 1)]
      
      return _english_element
 
@@ -212,7 +216,8 @@ def getStatus(_element_length):
 """
 element_length = len(element)
 while current_date < end_date:
-     status_df.loc[current_date] = getStatus(element_length)
+     index = current_date.strftime("%Y-%m-%d")
+     status_df.loc[index] = getStatus(element_length)
      current_date += timedelta(days=1)
 
 print(status_df.head())
@@ -228,7 +233,8 @@ choose_rotor = pd.DataFrame(columns=[i for i in range(3)])
 rotor_num = ['I', 'II', 'III', 'IV', 'V']
 while current_date < end_date:
      shuffle(rotor_num)
-     choose_rotor.loc[current_date] = rotor_num[:3]
+     index = current_date.strftime("%Y-%m-%d")
+     choose_rotor.loc[index] = rotor_num[:3]
      current_date += timedelta(days=1)
 
 print(choose_rotor.head())
