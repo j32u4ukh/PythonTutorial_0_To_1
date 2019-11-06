@@ -13,7 +13,6 @@ Created on Wed Oct 16 20:47:26 2019
 6. 資料讀入
 7. as
 8. datetime
-
 9. loc
 10. strftime
 
@@ -119,6 +118,13 @@ def shuffleElements(_element):
      return temp
 
 
+"""
+I, II, III, IV, V 是羅馬數字的一到五，分別代表五個旋轉盤，擁有著"元素相同，但順序
+不同"的五個陣列，用於之後存取。
+
+後面將會把這五個陣列記錄下來，未來使用相同旋轉盤與相同狀態去進行加密解密時，才會有
+一致的結果。
+"""
 I = shuffleElements(element)
 II = shuffleElements(element)
 III = shuffleElements(element)
@@ -126,16 +132,10 @@ IV = shuffleElements(element)
 V = shuffleElements(element)
 
 """
-I, II, III, IV, V 是羅馬數字的一到五，分別代表五個旋轉盤，擁有著"元素相同，但順序
-不同"的五個陣列，用於之後存取。
+重新建立一個表格，用來存放接下來的數據。由於現在還沒有數據，因此在 DataFrame 當中利用
+ columns 事先建立所需欄位，若是建立的同時就給予數據， pandas 會自己判斷有多少欄位。
 
-後面將會把這五個陣列記錄下來，未來使用相同旋轉盤與相同狀態去進行加密解密時，才會有
-一致的結果。
-
-重新建立一個表格，用來存放接下來的數據。由於現在還沒有數據，因此利用 columns 告訴
-pandas 我要建立多少欄位的表格。
-
-若是建立的同時就給予數據， pandas 會自己判斷有多少欄位。
+.loc 後面使用中括弧將該行的名稱包起來，新增或讀取都是利用這個方式。
 """
 rotor_df = pd.DataFrame(columns=[i for i in range(len(element))])
 rotor_df.loc["I"] = I
@@ -213,6 +213,9 @@ def getStatus(_element_length):
 
 迴圈最後一行，利用 current_date += timedelta(days=1) 取得"下一天"的日期，一直重複
 直到 current_date 超過 11 月，這樣表格就完成了。
+
+current_date.strftime("%Y-%m-%d") 將 current_date 的時間格式化成"年-月-日"的
+形式，之後利用日期讀取時，也利用相同方式把日期格式化，不需要去考慮時分秒等數值。
 """
 element_length = len(element)
 while current_date < end_date:

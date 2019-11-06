@@ -42,6 +42,11 @@ except 區域如何處理錯誤，就看各位的需求去撰寫，這裡的作�
 array = [i for i in range(10) if i % 3 == 0]
 print("array:", array)
 
+try:
+     print(array[5])
+except IndexError:
+     print("array length is {}".format(len(array)))
+
 value = 7
 try:
      print(array.index(value))

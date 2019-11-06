@@ -10,7 +10,7 @@ Created on Wed Oct 16 20:45:25 2019
 
 在學了陣列與迴圈之後，要來介紹一種比較特別的'建立迴圈的方式'。
 
-它的形式是 [i for i in range] ，會依序將 i 所代表的值加入迴圈，也可以對這個 i 做一些
+它的形式是 [i for i in range] ，會依序將 for 前面的值加入迴圈，也可以對這個值做一些
 計算，例如: [i + 1 for i in range]。
 """
 array1 = [i for i in range(5)]

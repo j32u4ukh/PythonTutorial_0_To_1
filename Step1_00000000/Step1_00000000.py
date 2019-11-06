@@ -11,16 +11,16 @@ operator1_5:True, False, and, or, not
 operator1_8:if elif else
 variable3:二進制、十進制、二進制應用
 array1:append(), sort(), copy()；索引值；id()
-operator2:ord('a') & chr(97):ASCII 數值與符號的轉換, int(), float()
-operator3:for, while, str.format()
-operator4:break, continue
-array2:[i for i in range]
-operator5:try, except, Error
-dict1:建立、新增、取值
-def1:function, return, _variable_name
-def2:assert, 預設值, *args
-operator6:import, from, pip # 多個 import 可用 () 框起來
-pandas:csv:rotors, rotors_status, choose_rotor # .strftime("%Y-%m-%d")
+*operator2:ord('a') & chr(97):ASCII 數值與符號的轉換, int(), float()
+*operator3:for, while, str.format()
+*operator4:break, continue
+*array2:[i for i in range]
+*operator5:try, except, Error
+*dict1:建立、新增、取值
+*def1:function, return, _variable_name
+*def2:assert, 預設值, *args
+*operator6:import, from, pip # 多個 import 可用 () 框起來
+*pandas:csv:rotors, rotors_status, choose_rotor # .strftime("%Y-%m-%d")
 *class1:(Object-oriented,OO), Pipeline
 *class2:inherit, super(), Reflector
 *class3:if __name__ == "__main__":, Rotor
