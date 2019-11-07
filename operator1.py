@@ -40,7 +40,7 @@ print(3)
 
 大家可以嘗試換掉雙引號當中的內容，可以更加瞭解 len() 的作用喔。
 
-"Hello World"的長度是 11，理由是"空格"也被算進去了。
+"Hello World"的長度是 11，因為"空格"也被算進去了。
 """
 print(len("Hello"))        # 5
 print(len("World"))        # 5
