@@ -4,27 +4,27 @@ Created on Wed Sep 18 22:27:34 2019
 
 @author: j32u4ukh
 
-*operator1:print, len, 
-*variable1:int, str, variable, type()
-*variable2:+-*/%, +=, -=, ==, ..., variable_name
-*operator1_5:True, False, and, or, not
-*operator1_8:if elif else
-*variable3:二進制、十進制、二進制應用
-*array1:append(), sort(), copy()；索引值；id()
-*operator2:ord('a') & chr(97):ASCII 數值與符號的轉換, int(), float()
-*operator3:for, while, str.format()
-*operator4:break, continue
-*array2:[i for i in range]
-*operator5:try, except, Error
-*dict1:建立、新增、取值
-*def1:function, return, _variable_name
-*def2:assert, 預設值, *args
-*operator6:import, from, pip # 多個 import 可用 () 框起來
-*pandas:csv:rotors, rotors_status, choose_rotor # .strftime("%Y-%m-%d")
-*class1:(Object-oriented,OO), Pipeline
-*class2:inherit, super(), Reflector
-*class3:if __name__ == "__main__":, Rotor
-*1_00000000:enigma.py, Step1_00000000.py
+Step0_05000000:operator1:print, len
+Step0_10000000:variable1:int, str, variable, type()
+Step0_15000000:variable2:+-*/%, +=, -=, ==, ..., variable_name
+Step0_20000000:operator1_5:True, False, and, or, not
+Step0_22500000:operator1_8:if elif else
+Step0_25000000:variable3:二進制、十進制、二進制應用
+Step0_30000000:array1:append(), sort(), copy()；索引值；id()
+Step0_35000000:operator2:ord('a') & chr(97):ASCII 數值與符號的轉換, int(), float()
+Step0_40000000:operator3:for, while, str.format()
+Step0_45000000:operator4:break, continue
+Step0_50000000:array2:[i for i in range]
+Step0_55000000:operator5:try, except, Error
+Step0_60000000:dict1:建立、新增、取值
+Step0_65000000:def1:function, return, _variable_name
+Step0_70000000:def2:assert, 預設值, *args
+Step0_75000000:operator6:import, from, pip # 多個 import 可用 () 框起來
+Step0_80000000:pandas:csv:rotors, rotors_status, choose_rotor # .strftime("%Y-%m-%d")
+Step0_85000000:class1:(Object-oriented,OO), Pipeline
+Step0_90000000:class2:inherit, super(), Reflector
+Step0_95000000:class3:if __name__ == "__main__":, Rotor
+Step1_00000000:enigma.py, Step1_00000000.py
 """
 from datetime import datetime
 from random import shuffle
