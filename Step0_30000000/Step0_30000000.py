@@ -44,7 +44,7 @@ print(array1)
 append()があれば、配列を確立するのとき、何もありませんでも大丈夫です。確立したあと
 要素に追加すれば大丈夫です。
 """
-array3 = []
+array3 = list()
 array3.append(3)
 array3.append(1)
 array3.append(2)

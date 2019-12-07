@@ -28,19 +28,19 @@ Created on Sat Oct 19 21:49:38 2019
 ループを中止する。こうな複数の条件の場合なら、教えたの and とか or とかが必要だ。
 """
 for i in range(10):
-     print("for i:", i)
-     
-     if i % 7 == 0 and i != 0:
-          break
+    print("for i:", i)
+
+    if i % 7 == 0 and i != 0:
+        break
 print("=" * 10)
 
 i = 0
 while i < 10:
-     print("while i:", i)
-     if i % 7 == 0 and i != 0:
-          break
-     
-     i += 1
+    print("while i:", i)
+    if i % 7 == 0 and i != 0:
+        break
+
+    i += 1
 
 """
 另一方面，倘若在迴圈執行的過程中，某個條件下不執行，但其他仍照樣執行，則需使用
@@ -57,33 +57,32 @@ while i < 10:
 """
 # no continue
 for i in range(10):
-     # 注意差異；違いに注意してください
-     if i & 1 != 0:
-          print("for i:", i)
-          
-print("="*10)
+    # 注意差異；違いに注意してください
+    if i & 1 != 0:
+        print("for i:", i)
+
+print("=" * 10)
 i = 0
 while i < 10:
-     # 注意差異；違いに注意してください
-     if i & 1 != 0:
-          print("while i:", i)
-     i += 1
-     
+    # 注意差異；違いに注意してください
+    if i & 1 != 0:
+        print("while i:", i)
+    i += 1
+
 # with continue
 for i in range(10):
-     # 注意差異；違いに注意してください
-     if i & 1 == 0:
-          continue
-     print("for i:", i)
-          
-print("="*10)
+    # 注意差異；違いに注意してください
+    if i & 1 == 0:
+        continue
+    print("for i:", i)
+
+print("=" * 10)
 # 注意差異；違いに注意してください
 i = -1
 while i < 10:
-     i += 1
-     
-     # 注意差異；違いに注意してください
-     if i & 1 == 0:
-          continue
-     print("while i:", i)
-     
+    i += 1
+
+    # 注意差異；違いに注意してください
+    if i & 1 == 0:
+        continue
+    print("while i:", i)

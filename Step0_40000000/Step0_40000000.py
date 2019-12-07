@@ -26,13 +26,13 @@ for の終了条件はもっとかっちり、 while の終了条件はもっと
 因此我建議，有明確的次數時使用 for 迴圈，若沒有明確次數，而是某些條件符合才執行時
 使用 while 迴圈。
 だから、自分の提案(ていあん)はかっちりな終了条件があれば、 for ループを使って、
-特定(とくてい)の条件が満たされている(みたされている)場合だけ実行するなら、 while 
+特定(とくてい)の条件が満たされている(みたされている)場合だけ実行するなら、 while
 ループを使ってください。
 """
 array1 = [1, 2, 3, 4, 5]
 for i in array1:
-     print(i)
-     
+    print(i)
+
 """
 上面的 i 將依序到 array1 裡面取值，原本需要 5 行才能把全部印出來，現在 2 行就完成了。
 i は array1 の中で順番に数値を持って、本来は 5 行(ぎょう)を掛かって、今はただ 2 行
@@ -44,10 +44,10 @@ while は角括弧(かくがっこ)とインデックス利用して、数値を
 """
 i = 0
 while i < len(array1):
-     print(array1[i])
-     
-     i += 1
-     
+    print(array1[i])
+
+    i += 1
+
 """
 while 後面接的是終止條件，也就是索引值小於長度值之前，重複印出陣列中第 i 個值。
 while の後ろは終了条件、意味はインデックスが配列の長さより小さいなら、配列の第　
@@ -71,15 +71,15 @@ i 目にプリントアウトする。
 print("for loop")
 array2 = ['あ', 'い', 'う', 'え', 'お']
 for i in array2:
-     print(i)
- 
+    print(i)
+
 print("while loop")
 i = 0
 while i < len(array2):
-     print(array2[i])
-     
-     i += 1
-     
+    print(array2[i])
+
+    i += 1
+
 """
 如果 for 迴圈也想根據索引值去取出陣列中的值，想必會需要有個東西，依序取出時會是
 [0, 1, 2, 3, 4]，那就是 range(5)。
@@ -102,13 +102,13 @@ range(0, 5) と同じ、または range(0, 5, 1)。
 一から五まで(五が含まれていない)、毎回二つ増加してなら、 range(1, 5, 2) に書かれる。
 """
 for i in range(5):
-     print(array2[i])
-     
+    print(array2[i])
+
 for i in range(0, 5, 1):
-     print(array2[i])
-     
+    print(array2[i])
+
 for i in range(1, 5, 2):
-     print(array2[i])
+    print(array2[i])
 
 """
 迴圈搭配字串格式化，便可印出連續變化的字串等，不需要一個一個打。
@@ -125,27 +125,27 @@ for i in range(1, 5, 2):
 """
 num = 0
 for i in range(1, 6):
-     print("i = ", i)
-     num += i
-     print("loop {}: num = {}".format(i, num))
-     
+    print("i = ", i)
+    num += i
+    print("loop {}: num = {}".format(i, num))
+
 """
 字串可透過 * 號，乘上次數，形成多個字串連接的單一字串。搭配迴圈可印出一些有趣的圖案。
 紐は "*" で回数(かいすう)を掛けて(かけて)、複数の紐に接続(せつぞく)して、一つ紐に
 なります。ループに加えて面白い画像(がぞう)をプリントアウトする。
 """
 for i in range(1, 6):
-     print("*" * i)
-     
+    print("*" * i)
+
 """
 陣列也經常使用迴圈去新增或讀取。
 配列もよくループを使って数値に追加(ついか)または読むこと。
 """
 array3 = []
 for i in range(5):
-     array3.append(i)
-     
+    array3.append(i)
+
 for i in range(5):
-     print(array3[i])
-     
+    print(array3[i])
+
 print(array3)
