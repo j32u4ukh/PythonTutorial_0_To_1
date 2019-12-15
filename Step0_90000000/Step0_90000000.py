@@ -1,5 +1,5 @@
 """
-教學大綱：
+教學大綱；シラバス；syllabus：
 1. inherit
 2. super()
 3. Reflector
@@ -131,7 +131,7 @@ mobile_phone1.call(mobile_phone2.getPhoneNumber())
 ＝＝＝＝＝
 以下將實作"反射板"(Reflector)繼承 Pipeline ， Reflector 是 Enigma 加密過程中的一環
 ，會將 Enigma 所包含的元素兩兩交換。
-反射板(Reflector) が Pipeline を継承することを実装(じっそう)して、 Reflector は Enigma 暗号化するの
+反射板(はんしゃばん) が Pipeline を継承することを実装(じっそう)して、 Reflector は Enigma 暗号化するの
 一部分、 Enigma 中の要素にペアワイズ交換(こうかん)。
 """
 

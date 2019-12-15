@@ -52,9 +52,9 @@ pandas でフォームを構築(こうちく)するとき、 DataFrame を利用
 注意，每一欄數據的數量要相同才行喔。
 注意！各(かく)列データの数量は同じべきだ。
 """
-df = pd.DataFrame({'column 1':[i for i in range(10)],
-                   'column 2':[i for i in range(10, 20)],
-                   'column 3':[i for i in range(20, 30)]})
+df = pd.DataFrame({'column 1': [i for i in range(10)],
+                   'column 2': [i for i in range(10, 20)],
+                   'column 3': [i for i in range(20, 30)]})
 
 """
 可以利用 print 把整個表格印出來，但當欄位或是行數很多的時候，無法一一看完，可以印出
@@ -97,36 +97,36 @@ ASCII を入手(にゅうしゅ)して、 chr で紐になると、一つずつ�
 
 
 def getTaiwanElement():
-     # ㄅ ASCII: 12549
-     # ㄩ ASCII: 12585
-     _taiwan_element = [chr(i) for i in range(12549, 12585 + 1)]
-     
-     # ˊ ASCII: 714
-     # ˇ ASCII: 711
-     # ˋ ASCII: 715
-     # ˙ ASCII: 729          
-     punctuation = ["ˊ", "ˇ", "ˋ", "˙"]
-     for i in punctuation:
-          _taiwan_element.append(i)
-          
-     return _taiwan_element
+    # ㄅ ASCII: 12549
+    # ㄩ ASCII: 12585
+    _taiwan_element = [chr(i) for i in range(12549, 12585 + 1)]
+
+    # ˊ ASCII: 714
+    # ˇ ASCII: 711
+    # ˋ ASCII: 715
+    # ˙ ASCII: 729
+    punctuation = ["ˊ", "ˇ", "ˋ", "˙"]
+    for i in punctuation:
+        _taiwan_element.append(i)
+
+    return _taiwan_element
 
 
 def getJapanElement():
-     # あ ASCII: 12354
-     # ん ASCII: 12435
-     _japan_element = [chr(i) for i in range(12354, 12435 + 1)]
-     
-     return _japan_element
-     
+    # あ ASCII: 12354
+    # ん ASCII: 12435
+    _japan_element = [chr(i) for i in range(12354, 12435 + 1)]
+
+    return _japan_element
+
 
 def getEnglishElement():
-     # a ASCII: 97
-     # z ASCII: 122
-     _english_element = [chr(i) for i in range(65, 90 + 1)]
-     _english_element += [chr(i) for i in range(97, 122 + 1)]
-     
-     return _english_element
+    # a ASCII: 97
+    # z ASCII: 122
+    _english_element = [chr(i) for i in range(65, 90 + 1)]
+    _english_element += [chr(i) for i in range(97, 122 + 1)]
+
+    return _english_element
 
 
 """
@@ -148,9 +148,9 @@ shuffleElements の中の temp は element.copy() でもらったので、 eleme
 
 
 def shuffleElements(_element):
-     temp = _element.copy()
-     shuffle(temp)
-     return temp
+    temp = _element.copy()
+    shuffle(temp)
+    return temp
 
 
 """
@@ -263,12 +263,13 @@ status_df = pd.DataFrame(columns=[i for i in range(NUM)])
 
 
 def getStatus(_element_length):
-     status = []
-     for j in range(NUM):
-          rand = randint(0, _element_length - 1)
-          status.append(rand)
-          
-     return status
+    status = []
+    for j in range(NUM):
+        rand = randint(0, _element_length - 1)
+        status.append(rand)
+
+    return status
+
 
 """
 getStatus 根據陣列長度，產生五個隨機數，分別是五個旋轉盤的狀態值。
@@ -300,9 +301,9 @@ current_date.strftime("%Y-%m-%d") で current_date の時間をフォーマッ�
 """
 element_length = len(element)
 while current_date < end_date:
-     index = current_date.strftime("%Y-%m-%d")
-     status_df.loc[index] = getStatus(element_length)
-     current_date += timedelta(days=1)
+    index = current_date.strftime("%Y-%m-%d")
+    status_df.loc[index] = getStatus(element_length)
+    current_date += timedelta(days=1)
 
 print(status_df.head())
 print(status_df.tail())
@@ -316,10 +317,10 @@ end_date = datetime(2019, 12, 1)
 choose_rotor = pd.DataFrame(columns=[i for i in range(3)])
 rotor_num = ['I', 'II', 'III', 'IV', 'V']
 while current_date < end_date:
-     shuffle(rotor_num)
-     index = current_date.strftime("%Y-%m-%d")
-     choose_rotor.loc[index] = rotor_num[:3]
-     current_date += timedelta(days=1)
+    shuffle(rotor_num)
+    index = current_date.strftime("%Y-%m-%d")
+    choose_rotor.loc[index] = rotor_num[:3]
+    current_date += timedelta(days=1)
 
 print(choose_rotor.head())
 print(choose_rotor.tail())

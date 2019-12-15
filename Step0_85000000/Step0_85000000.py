@@ -1,6 +1,6 @@
 """
 教學大綱；シラバス；syllabus：
-1. class：(Object-oriented,OO)
+1. class：(Object-oriented, OO)
 2. Pipeline
 
 class 又稱為'類別'，是物件導向語言的特色，就像現實中的物品一樣，會有各式各樣的屬性
