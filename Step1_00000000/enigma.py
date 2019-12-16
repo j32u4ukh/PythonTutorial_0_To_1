@@ -96,6 +96,8 @@ class Rotor(Pipeline):
 
 """
 依照需求添加旋轉盤，由於反射板的設計，元素數量必須為偶數個。
+
+必要によてスクランブラーを追加する。スクランブラーの設計の原因で、要素の数量は必ず偶数だ。
 """
 
 
@@ -103,16 +105,19 @@ class Enigma:
     def __init__(self, _items):
         """
         建立 Enigma 的同時，會利用傳入的 _items 自動建立反射板。
+        Enigma を構築しているとき、 _items を利用して、自分で反射板を構築する。
         """
         self.reflector = Reflector(_items)
 
         """
         依序存放旋轉盤。
+        順番にスクランブラーを追加する。
         """
         self.rotors = []
 
     """
     添加旋轉盤。
+    スクランブラーを追加する。
     """
 
     def add(self, _rotor):
@@ -120,13 +125,19 @@ class Enigma:
 
         """
         將旋轉盤存放進 self.rotors 陣列。
+        スクランブラーを配列 self.rotors に入れる。
         """
         self.rotors.append(_rotor)
 
     """
     添加完旋轉盤後，要進行編譯，形成右邊旋轉盤轉1圈，左邊旋轉盤轉1次。
+    スクランブラーを追加することは終わった後、コンパイルが必要だ。右側のスクランブラーは 1 ラウンドに回して、
+    左側のスクランブラーは 1 回に回している。
 
+    ＝＝＝＝＝
     compile 為 Python 的內建函數，因此這個函示名稱最後面加了底線以作區別。
+    compile は Python 自分の関数だから、この関数の名前の後ろにボトムラインを加えて、compile との
+    違うがわかりやすい。
     """
 
     def compile_(self):
@@ -134,17 +145,20 @@ class Enigma:
         for _r in range(_rotor_num):
             if _r == 0:
                 """
-                第0個旋轉盤不做處理，直接繼續下一個循環。
+                第 0 個旋轉盤不做處理，直接繼續下一個循環。
+                第 0 目スクランブラー何も対処しない、次のループを続いて。
                 """
                 continue
             else:
                 """
                 後面的旋轉盤'進位值 carry' = 前面旋轉盤的'進位值 carry' 乘以 旋轉盤一圈有幾個元素。
+                後ろのスクランブラーのキャリー値 = 前のスクランブラーのキャリー値を要素の数量にかける。
                 """
                 self.rotors[_r].carry = self.rotors[_r - 1].carry * self.rotors[_r].length
 
     """
     使用這個函式，將明文加密。
+    この関数を使って、クリアテキストを暗号化（あんごうか）する。
     """
 
     def swap(self, _input):
@@ -153,59 +167,73 @@ class Enigma:
 
         """
         將句子或單字一次一個元素進行循環。
+        文または言葉の要素を一つつにループして。
         """
         for _char in _input:
             """
-            元素依序從輸入，經過數個反射板。
+            元素依序從輸入，經過數個旋轉盤。
+            要素は順番に輸入から、数個スクランブラーを通して。
             """
             for _r in range(_rotor_num):
                 _char = self.rotors[_r].forwardSwap(_char)
 
             """
             元素被反射板轉換成另一個元素。
+            要素は反射板に他の要素へ変換する。
             """
             _char = self.reflector.swap(_char)
 
             """
             元素依序從反射板，再次經過數個反射板，但這次的順序是反過來的。
+            要素は反射板から、数個スクランブラーを通してが、今回のスクランブラーの順番は逆だ。
             """
             for _r in range(_rotor_num - 1, -1, -1):
                 _char = self.rotors[_r].backwardSwap(_char)
 
             """
             每加密一個元素之後，就檢查是否需要轉動旋轉盤。
+            一つ要素を暗号化した後、スクランブラーを回すことが必要かどうかをチェックする。
             """
             for _r in range(_rotor_num):
                 self.rotors[_r].checkRotate()
 
             """
             將加密後的元素，加入 _output。
+            暗号化した要素が _output に入れる。
             """
             _output += _char
 
         """
         全部元素被加密後都加入 _output，返回被加密後的結果。
+        全ての要素は暗号化して _output に入れて、暗号化するの結果を戻る。
         """
         return _output
 
     """
-    旋轉盤加密後會旋轉，因此與最初的位置已大不相同，透過此函式重新設置個個旋轉盤的初始位置。
+    旋轉盤加密後會旋轉，因此與最初的位置已大不相同，透過此函式重新設置這個旋轉盤的初始位置。
+    暗号化した後スクランブラーが回すだから、最初の順番ととても違う、だから、この関数でこのスクランブラー
+    最初の順番に戻す。
     """
 
     def setRotors(self, *args):
         for _r in range(len(self.rotors)):
             """
             counter 在記錄加密/解密次數，因為重新設置，所以 counter = 0。
+            counter は暗号化と解読することが何回をしましたを記録する。リセットするだから、
+            counter もゼロになる。
             """
             self.rotors[_r].counter = 0
             try:
                 """
                 將第 _r 個旋轉盤初始位置設為 args 的第 _r 個值。
+                第 _r 目スクランブラーの位置(いち)は args の第 _r 目数値を代入する。
                 """
                 self.rotors[_r].pointer = args[_r]
             except:
                 """
                 若發生參數比旋轉盤數量少，將剩下的旋轉盤初始位置設為 0。
+                もし args のパラメータの数量はスクランブラーの数量より少ないなら、
+                残ったスクランブラーの位置が全部 0 を代入する。
                 """
                 self.rotors[_r].pointer = 0
 
