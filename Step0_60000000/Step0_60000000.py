@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
 """
-Created on Mon Oct 28 22:44:14 2019
-
-@author: j32u4ukh
-
 教學大綱；シラバス；syllabus：
 1. dict 建立；確立する
 2. dict 取值；読んでいる
@@ -25,10 +20,10 @@ value 。
 辞書を確立することは中括弧(ちゅうかっこ)で内容を取り囲んで、コロンの左は key 、右は
 これが表すの value 。これは一つグループです。グループとグループの間は読点で別れる。
 """
-d1 = {'a':1, 'b':2, 'c':3}
-d2 = {1:'a', 2:'b', 3:'c'}
-d3 = {'a':[1, 2, 3], 
-      'b':{"w":"up", "s":"down", "a":"left", "d":"right"}
+d1 = {'a': 1, 'b': 2, 'c': 3}
+d2 = {1: 'a', 2: 'b', 3: 'c'}
+d3 = {'a': [1, 2, 3],
+      'b': {"w": "up", "s": "down", "a": "left", "d": "right"}
       }
 """
 從上面的示範中可以知道， key 可以是字串或數字，而 value 基本上各種資料都可以放進去，
@@ -52,9 +47,9 @@ d3 = {'a':[1, 2, 3],
 print(d1['a'])
 print(d2[1])
 try:
-     print(d3['c'])
+    print(d3['c'])
 except KeyError:
-     print("""c 並不在 d3 的 key 當中。
+    print("""c 並不在 d3 的 key 當中。
 c は d3 の key の中にありません。
 c is not in the keys of d3.""")
      

@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
 """
-Created on Wed Sep 18 22:27:34 2019
-
-@author: j32u4ukh
-
 Step0_05000000:operator1:print, len
 Step0_10000000:variable1:int, str, variable, type()
 Step0_15000000:variable2:+-*/%, +=, -=, ==, ..., variable_name
@@ -91,7 +86,7 @@ def implementWithPandas():
 
 def implementWithoutPandas():
     element = getTaiwanElement() + getJapanElement() + getEnglishElement()
-    rotors = [element.copy() for i in range(4)]
+    rotors = [element.copy() for _ in range(4)]
 
     for r in rotors:
         shuffle(r)
@@ -128,5 +123,3 @@ print("encode:", encode)
 enigma.setRotors(7, 8, 4)
 decode = enigma.swap(encode)
 print("decode:", decode)
-
-

@@ -49,8 +49,8 @@ class Rotor(Pipeline):
         self.setSwap()
 
     def setSwap(self):
-        self.forward = [0 for i in range(self.length)]
-        self.backward = [0 for i in range(self.length)]
+        self.forward = [0 for _ in range(self.length)]
+        self.backward = [0 for _ in range(self.length)]
 
         for i in range(self.length):
             _curr_char = self.shuffle_sequence[i]
@@ -229,7 +229,7 @@ class Enigma:
                 第 _r 目スクランブラーの位置(いち)は args の第 _r 目数値を代入する。
                 """
                 self.rotors[_r].pointer = args[_r]
-            except:
+            except IndexError:
                 """
                 若發生參數比旋轉盤數量少，將剩下的旋轉盤初始位置設為 0。
                 もし args のパラメータの数量はスクランブラーの数量より少ないなら、

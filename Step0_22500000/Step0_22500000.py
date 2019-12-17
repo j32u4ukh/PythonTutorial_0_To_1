@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
 """
-Created on Thu Oct 17 22:46:08 2019
-
-@author: j32u4ukh
-
 教學大綱；シラバス；syllabus：
 1. if else
 2. elif

@@ -135,8 +135,8 @@ class Rotor(Pipeline):
 
         self.forward と self.backward を初期化(しょきか)して、長さは self.length。
         """
-        self.forward = [0 for i in range(self.length)]
-        self.backward = [0 for i in range(self.length)]
+        self.forward = [0 for _ in range(self.length)]
+        self.backward = [0 for _ in range(self.length)]
 
         """
         self.shuffle_sequence 保存了 _items 的原始順序，因此以下透過 self.shuffle_sequence
@@ -355,6 +355,3 @@ __name__ == "__main__" の意味は”今のコードが今のスクリプトに
 """
 if __name__ == "__main__":
     rotorTest()
-
-
-

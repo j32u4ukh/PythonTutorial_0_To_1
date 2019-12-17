@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
 """
-Created on Wed Oct 16 20:44:11 2019
-
-@author: j32u4ukh
-
 教學大綱；シラバス；syllabus：
 1. ord()
 2. chr()

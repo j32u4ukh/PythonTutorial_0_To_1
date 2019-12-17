@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
 """
-Created on Wed Oct 16 20:38:54 2019
-
-@author: j32u4ukh
-
 教學大綱；シラバス；syllabus：
 1. print
 2. 註解；注釈(ちゅうしゃく)

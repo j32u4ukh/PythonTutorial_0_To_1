@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
 """
-Created on Sat Oct 19 21:49:38 2019
-
-@author: j32u4ukh
-
 教學大綱；シラバス；syllabus：
 1. break
 2. continue

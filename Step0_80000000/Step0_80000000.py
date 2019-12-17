@@ -165,6 +165,8 @@ I, II, III, IV, V はローマ数字の一から五まで、読むことのた�
 これから五つ配列を記録して、将来同じスクランブラーと状態を使って暗号化と解読している
 とき、同じ結果をもらう。
 """
+
+
 I = shuffleElements(element)
 II = shuffleElements(element)
 III = shuffleElements(element)

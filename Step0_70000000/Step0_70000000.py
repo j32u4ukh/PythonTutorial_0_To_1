@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
 """
-Created on Wed Oct 16 20:47:12 2019
-
-@author: j32u4ukh
-
 教學大綱；シラバス；syllabus：
 1. 預設值；デフォルト値
 2. assert
@@ -24,8 +19,10 @@ Created on Wed Oct 16 20:47:12 2019
 若想修改值，就和原本教的一樣，給予想要的數值即可。
 もし数値を変えたいなら、教えた通り、数値を入れていい。
 """
-def computeMultiply(_value, _multiply=2):     
-     return _value * _multiply
+
+
+def computeMultiply(_value, _multiply=2):
+    return _value * _multiply
 
 
 value = 3
@@ -50,9 +47,9 @@ print(value)
 
 
 def divide(_numerator, _denominator):
-     assert _denominator > 0, "分母一定要大於 0"
-     
-     return _numerator / _denominator
+    assert _denominator > 0, "分母一定要大於 0"
+
+    return _numerator / _denominator
 
 
 print(divide(5, -2))
@@ -64,12 +61,14 @@ print(divide(5, 2))
 不確実な数量のパラメータに表示(ひょうじ)してがいい方法だ。関数の中に星印(ほしじるし)
 の必要がいない。
 """
+
+
 def getSum(*args):
-     _sum = 0
-     for i in args:
-          _sum += i
-          
-     return _sum
+    _sum = 0
+    for i in args:
+        _sum += i
+
+    return _sum
 
 
 print(getSum(1, 2, 3, 4, 5))

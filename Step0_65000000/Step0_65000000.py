@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
 """
-Created on Wed Oct 16 20:46:56 2019
-
-@author: j32u4ukh
-
 教學大綱；シラバス；syllabus：
 1. function
 2. return
@@ -21,13 +16,15 @@ Created on Wed Oct 16 20:46:56 2019
 其實前面所使用的 print() 、 len() 、 append() 、、、都是函式(def)的例子。
 実は、使えたの print() 、 len() 、 append() 、、、も関数の例だ。
 """
+
+
 def printAToZ():
-     a_to_z = []
-     for i in range(97, 97 + 26):
-          _char = chr(i)
-          a_to_z.append(_char)
-          
-     print(a_to_z)
+    a_to_z = []
+    for i in range(97, 97 + 26):
+        _char = chr(i)
+        a_to_z.append(_char)
+
+    print(a_to_z)
 
 
 printAToZ()
@@ -46,21 +43,21 @@ printAToZ()
 
 
 def elementIndex(_array, _element):
-     try:
-          _index = _array.index(_element)
-     except ValueError:
-          _array.append(_element)
-          # sort array
-          _array.sort()
-     
-          _index = _array.index(_element)
-     
-     print("element:{} @index:{}, array = {}".format(
-               _element,
-               _index,
-               _array
-           ))
-     
+    try:
+        _index = _array.index(_element)
+    except ValueError:
+        _array.append(_element)
+        # sort array
+        _array.sort()
+
+        _index = _array.index(_element)
+
+    print("element:{} @index:{}, array = {}".format(
+        _element,
+        _index,
+        _array
+    ))
+
 
 array = [1, 3, 5, 7, 9]
 elementIndex(array, 5)
@@ -82,15 +79,15 @@ return 將結果回傳出來。
 
 
 def computeBmi(_height, _weight):
-     try:
-          # cm → m
-          _height /= 100
-          _bmi = _weight / (_height * _height)
-     except ZeroDivisionError:
-          _height = 1.6
-          _bmi = _weight / (_height * _height)
-          
-     return _bmi
+    try:
+        # cm → m
+        _height /= 100
+        _bmi = _weight / (_height * _height)
+    except ZeroDivisionError:
+        _height = 1.6
+        _bmi = _weight / (_height * _height)
+
+    return _bmi
 
 
 bmi = computeBmi(188, 70)
@@ -123,19 +120,18 @@ print("My bmi is ", bmi)
 変えない。
 
 ＝＝＝＝＝
-應該是因為我目前是使用 Spyder 的編譯器，變得必須使用 global 。使用 global 的效果便是
-在函式內的操作在函式結束後依然有效。
-多分今使うコンパイラは Spyder 、 global を使わなければなりません。 global を使って、
-関数内部に変数を操作(そうさ)したの結果がなくすことがない。
+使用 global 的效果便是在函式內的操作在函式結束後依然有效。
+global を使って、関数内部に変数を操作(そうさ)したの結果がなくすことがない。
 """
 value = 7
 
+
 def sumValue(_new_value):
-     global value
-     value += _new_value
-     
-     print("value:", value)
-     
+    global value
+
+    value = value + _new_value
+    print("value:", value)
+
 
 sumValue(3)
 sumValue(3)

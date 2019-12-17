@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
 """
-Created on Fri Oct 25 22:31:56 2019
-
-@author: j32u4ukh
-
 教學大綱；シラバス；syllabus：
 1. import
 2. from
@@ -29,6 +24,7 @@ Created on Fri Oct 25 22:31:56 2019
 使い方は下のようにしてください。
 """
 import math
+from math import log2
 
 print(math.log10(100))  # 2.0
 """
@@ -49,7 +45,7 @@ log2 ，所以可以不用像前面一個例子，前面還要寫 math，而是�
 他のインポートするの例は下があります。 from でプログラムに”この log2 は math からの
 log2 ”に教えるので、前の例と違う、 log2 を直接(ちょくせつ)使用(しよう)が大丈夫です。
 """
-from math import log2
+# from math import log2
 
 print(log2(8))  # 3.0
 

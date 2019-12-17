@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
 """
-Created on Wed Oct 16 20:40:42 2019
-
-@author: j32u4ukh
-
 教學大綱；シラバス；syllabus：
 1. 十進制；１０進數
 2. 二進制；バイナリ
