@@ -139,7 +139,7 @@ class Rotor(Pipeline):
         self.backward = [0 for _ in range(self.length)]
 
         """
-        self.shuffle_sequence 保存了 _items 的原始順序，因此以下透過 self.shuffle_sequence
+        self.shuffle_sequence 保存了 _items 的原始順序，因此以下透過 self.shufEnigmafle_sequence
         來存取元素。
         
         self.shuffle_sequence は _items 元の順番は保存したので、下は self.shuffle_sequence から
