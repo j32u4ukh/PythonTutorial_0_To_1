@@ -28,3 +28,7 @@ To practice English and Japanese is one of my motivation, so I'll do my best to 
 言語能力は上手ではありませんので、完璧な翻訳ではありません。許してください。
 
 It's not perfect translation of sentence, please forgive me for my limited language ability.
+
+---
+
+下一篇；次へ；Next：[PythonTutorial_1_To_2](https://github.com/j32u4ukh/PythonTutorial_1_To_2)
