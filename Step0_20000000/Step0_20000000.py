@@ -17,7 +17,7 @@ True と False　の互いに(たがいに )結合(けつごう)して、多い�
 
 ＝＝＝＝＝
 and: 都是 True 才會是 True。
-and: 二つ　True　は結果を True　になります。
+and: 全部 True なら、結果を True になります。
 """
 print(True and True)    # True
 print(True and False)   # False
@@ -32,8 +32,8 @@ print(True or False)   # True
 print(False or False)  # False
 
 """
-not:True → False, False → True。
-not:True　を False　になります、False　を True　になります。
+not: True → False, False → True。
+not: True　を False　になります、False　を True　になります。
 """
 print(not True)    # False
 print(not False)   # True
