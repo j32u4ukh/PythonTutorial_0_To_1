@@ -11,9 +11,9 @@
 
 ＝＝＝＝＝
 函式的參數可以事先給予值，如果這個數值適用我們當下的情形時，可以省略不給予值。下方
-函式中的 _multiply=2 就是預設值的例子。
+函式中的 multiply=2 就是預設值的例子。
 関数のパラメータは事前(じぜん)に数値をあげて、もしこの数値が今の状況にとて適切だったら、
-略ことが大丈夫だ。下の関数中の _multiply=2 はデフォルト値の例だ。
+略ことが大丈夫だ。下の関数中の multiply=2 はデフォルト値の例だ。
 
 ＝＝＝＝＝
 若想修改值，就和原本教的一樣，給予想要的數值即可。
@@ -21,8 +21,8 @@
 """
 
 
-def computeMultiply(_value, _multiply=2):
-    return _value * _multiply
+def computeMultiply(_value, multiply=2):
+    return _value * multiply
 
 
 value = 3

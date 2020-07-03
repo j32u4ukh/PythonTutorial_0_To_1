@@ -32,7 +32,7 @@ print(9527)
 
 <ruby>文字列<rt>もじれつ</rt></ruby> str，前のレッスンで教えたので、ここは説明しない。
 
-"string" which was teached before, so let's skip this part.
+"String" which was teached before, so let's skip this part.
 
 ---
 
@@ -40,7 +40,7 @@ print(9527)
 
 <ruby>浮動小数点数型<rt>ふどうしょうすうてんすうかた</rt></ruby> float　とは、小数点が付いている数字だ。
 
-"float" is the number with a decimal point.
+"Float" is the number with a decimal point.
 
 * 付ける：（他動詞）
 * つまり:前面講了一個句子

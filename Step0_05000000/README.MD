@@ -1,4 +1,4 @@
-# 教學大綱；シラバス；syllabus：
+教學大綱；シラバス；syllabus：
 1. print
 2. 註解 / <ruby>注釈<rt>ちゅうしゃく</rt></ruby> / comment
 3. len
@@ -47,7 +47,7 @@ The current part of this text is called a multi-line comment. It is surrounded b
 
 一重引用符と二重引用符の効果は同じだ。
 
-single quotation mark is same as double one.
+Single quotation mark is same as double one.
 '''
 
 # 而這是單行註解的方式，在每行前面加井字號。
