@@ -89,7 +89,11 @@ print(j2)  # 3.14159
 
 當我們將整數、浮點數或字串存到變數裡面之後，我怎麼知道它是整數、浮點數還是字串呢？
 
-整数とか浮動小数点数とか紐を変数に代入した後、どうやってそれのタイプを知りますか？
+整数とか浮動小数点数とか文字列を変数に代入した後、どうやってそのタイプを知りますか？
+
+か：列舉擇一(舉出全部)
+とか：列舉(沒舉出全部)
+それ: 單獨使用，後不接名詞
 
 When we assign a string, float or integer into variable, how can we konw that it type is?
 
@@ -97,7 +101,7 @@ When we assign a string, float or integer into variable, how can we konw that it
 
 可利用 type()，查看變數是屬於哪種類型喔。
 
-type()　でこの変数のタイプをチェックはできます。
+type() でこの変数のタイプをチェックできます。
 
 We can use type function to check the type of the variable.
 
@@ -105,7 +109,7 @@ We can use type function to check the type of the variable.
 
 <class 'int'>表示它屬於整數；<class 'str'>表示它屬於字串；<class 'float'>表示它屬於浮點數。
 
-<class 'int'>の意味はこれは整数に<ruby>属<rt>ぞく</rt></ruby>する；<class 'str'>は紐に属する；<class 'float'>は浮動小数点数に属する。
+<class 'int'>の意味はこれは整数に<ruby>属<rt>ぞく</rt></ruby>されている；<class 'str'>は紐に属されている；<class 'float'>は浮動小数点数に属されている。
 
 <class 'int'> means that it is belonged to an integer; <class 'str'> means that it is belonged to a string；<class 'float'> means that it is belonged to an float.
 

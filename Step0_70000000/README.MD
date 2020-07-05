@@ -85,7 +85,7 @@ print(divide(5, 2))
 
 最後，如果我們在規劃函式的時候不確定會有幾個參數，在參數的地方利用 "*args" 表示不定數量參數是個好方法。
 
-最後、もし関数を計画しているときパラメータの数量はまだ決まっていない、 *args で不確実な数量のパラメータに<ruby>表示<rt>ひょうじ</rt></ruby>してがいい方法だ。
+最後、もし関数を計画しているときパラメータの数量はまだ決まっていない、*args で不確実な数量のパラメータに<ruby>表示<rt>ひょうじ</rt></ruby>してがいい方法だ。
 
 Finally, if we are not sure about several parameters when planning a function, it is a good idea to use "*args" to indicate an indefinite number of parameters in the parameter area.
 
