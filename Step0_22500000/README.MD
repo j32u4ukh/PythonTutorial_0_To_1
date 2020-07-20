@@ -18,7 +18,7 @@ Here we will introduce the usage of conditional judgment, in other words, determ
 
 if 後面接了條件句，條件句的結果是 True 或 False 這兩種邏輯型的資料。
 
-if の後ろに条件句（く）しか来ない。条件句の結果は　True　か　False　というこの二種類のロジックタイプのデータしかない。
+if の後ろに条件<ruby>句<rt>く</rt></ruby>しか来ない。条件句の結果は True か False という二種類のロジックタイプのデータしかない。
 
 Condition which write after "if" has two type of logical data, "True" or "False".
 
@@ -63,9 +63,7 @@ We can see the same condition inputs with different string and get different res
 
 if else 將情況做了二分法，只有是或不是，在實際使用上也會出現三種(或以上)情況的時候，就必須寫兩層 if else，實在不太方便。
 
-"if" と "else" によって、状況が二種類に分かれている。だが、実際に使う時、三種類以上の場合は沢山ある。
-
-そのとき、"if" と "else" 二回以上を書かなければならない、本当に不便だ。
+"if" と "else" によって、状況が二種類に分かれている。だが、実際に使う時、三種類以上の場合は沢山ある。そのとき、"if" と "else" 二回以上を書かなければならない、本当に不便だ。
 
 "if" and "else" divide the situation into two, "True" or "False". But when there are three(or more) situations, we have to write two layer of "if esle", which is not convenient.
 
@@ -73,9 +71,7 @@ if else 將情況做了二分法，只有是或不是，在實際使用上也會
 
 因此可以使用 elif，在第一個 if 判斷完之後繼續判斷，全部條件都不符合後才執行 else 裡面的內容。
 
-だから、"elif" を使って、一番目 if を判断し終わったと続けて判断する。
-
-全ての条件が<ruby>満<rt>み</rt></ruby>たされなっかたら "else" の内容を実行する。
+だから、"elif" を使って、一番目 if を判断し終わったと続けて判断する。全ての条件が<ruby>満<rt>み</rt></ruby>たされなっかたら "else" の内容を実行する。
 
 So, we will determine the condition of "elif" after judgment of first "if", when these conditions are all invalid, execute the content in the "else" block.
 

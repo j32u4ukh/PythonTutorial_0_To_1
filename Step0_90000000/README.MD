@@ -210,20 +210,24 @@ mobile_phone1.call(mobile_phone2.getPhoneNumber())
 
 これから Enigma の中に使ったオブジェクトを例として、皆に実際に継承を使っているの状況を見せて、だから、オブジェクトの内容をを説明することが必要だと思います。
 
+Below I will take the object used in Enigma as an example to let you see the actual use of inheritance. Therefore, I need to explain the connotation of the object. For details, please refer to PythonTutorial_0_To_1/Enigma/.
+
 ---
 
 以下將實作"反射板"(Reflector)繼承 Pipeline，Reflector 是 Enigma 加密過程中的一環，會將 Enigma 所包含的元素兩兩交換。
 
 <ruby>反射板<rt>はんしゃばん</rt></ruby>が Pipeline を継承することを<ruby>実装<rt>じっそう</rt></ruby>して、Reflector は Enigma 暗号化するの一部分、Enigma 中の要素にペアワイズ<ruby>交換<rt>こうかん</rt></ruby>。
 
+The following will implement the Reflector to inherit the Pipeline. Reflector is a part of Enigma's encryption process and exchanges the elements contained in Enigma.
+
 ```python
 class Pipeline:
-    def __init__(self, _items):
-        self.origin_sequence = _items.copy()
+    def __init__(self, items):
+        self.origin_sequence = items.copy()
         self.origin_sequence.sort()
 
-        self.shuffle_sequence = _items.copy()
-        self.length = len(_items)
+        self.shuffle_sequence = items.copy()
+        self.length = len(items)
 
     def getIndex(self, char):
         try:
@@ -245,6 +249,8 @@ class Pipeline:
 
 反射板の説明は PythonTutorial_0_To_1/Enigma/ を見てください。
 
+Please see PythonTutorial_0_To_1/Enigma/ for the description of the Reflector.
+
 ```python
 class Reflector(Pipeline):
 ```
@@ -253,17 +259,21 @@ class Reflector(Pipeline):
 
 Reflector 繼承 Pipeline，Pipeline 做得到的 Reflector 一樣可以。
 
-Reflector は Pipeline を継承(けいしょう)して、Pipeline ができるなら Reflector もできる。
+Reflector は Pipeline を<ruby>継承<rt>けいしょう</rt></ruby>して、Pipeline ができるなら Reflector もできる。
+
+Reflector inherits from Pipeline, so the Reflector can do what Pipeline can do.
 
 ---
 
-super().__init__(_items) 執行了 Pipeline 當中的 __init__()，並給予參數 _items。
+super().__init__(items) 執行了 Pipeline 當中的 __init__()，並給予參數 items。
 
-super().__init__(_items) は Pipeline 中の __init__()を実行して、パラメータ _items をあげる。
+super().__init__(items) は Pipeline 中の __init__()を実行して、パラメータ items をあげる。
+
+super().__init__(items) executes the __init__() in the Pipeline and gives the parameter items.
 
 ```python
-    def __init__(self, _items):
-        super().__init__(_items)
+    def __init__(self, items):
+        super().__init__(items)
 ```
 
 ### def swap
@@ -272,11 +282,15 @@ Reflector 的設計為兩兩互換，這裡讓第 0 和第 1 互換，第 2 和�
 
 Reflector の<ruby>設計<rt>せっけい</rt></ruby>はペアワイズ交換する、第 0 目と第 1 目交換して、第 2 目と第 3 目交換して、こういう<ruby>風<rt>ふう</rt></ruby>に<ruby>推定<rt>すいてい</rt></ruby>する。
 
+Reflector is designed to be interchanged in pairs. Here, the 0th and the 1st are interchanged, the 2nd and the 3rd are interchanged, and so on.
+
 #### index & 1
 
 採用二進制規則來判斷奇偶，結果為 0 是偶數，結果為 1 是奇數，例如：
 
 バイナリで奇数か偶数かを判断する、もし結果は 0 なら、この数字が偶数を表示して、結果は 1 なら、この数字が奇数を表示する。
+
+The binary rule is used to determine the parity, the result is 0 is an even number, and the result is 1 is an odd number, for example:
 
 index = 4(十進制) = 00000100
 
@@ -296,11 +310,15 @@ index & 1        = 00000001 = 1
 
 奇数の場合は、前の要素と交換して。
 
+Odd number: interchange with the previous element.
+
 ---
 
 偶數：和後一個元素互換。
 
 偶数の場合は、後ろの要素と交換して。
+
+Even number: interchange with the next element.
 
 ```python
     def swap(self, _input):
@@ -317,17 +335,23 @@ reflectorTest 是個測試 Reflector 的函式，items 提供了所有的元素�
 
 これは Reflector をチェックしての関数、 items で全ての要素を提供して。 Reflector はペアワイズ交換するので、要素の数量必ず偶数を注意してください。
 
+The reflectorTest is a function to test Reflector. Items provides all the elements. Note that the number of elements must be an even number, because Reflector is interchanged in pairs.
+
 ---
 
 透過 reflactor 的 swap 對當中的每個元素做加密，並加入 encode 當中。
 
 reflactor の swap で全ての要素に暗号化して、encode の中に入れて。
-    
+
+Encrypt each element through the swap of reflactor and add it to the encode.
+ 
 ---
 
 由於 Reflector 是兩兩互換的，因此將 encode 再次透過 swap 轉換，便會變回原本輸入的內容了。
 
 Reflector はペアワイズ交換するので、 encode を swap 利用して、元の内容に変えます。
+
+Since Reflector is swapped in pairs, the encode will be converted to the original input by swap again.
     
 ```python
 def reflectorTest():
