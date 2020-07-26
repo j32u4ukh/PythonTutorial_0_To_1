@@ -10,27 +10,36 @@
 
 這裡要介紹的是"陣列 array"，包含建立、添加、排序與複製。
 
-ここは<ruby>配列<rt>はいれつ</rt></ruby> array を紹介する。<ruby>確立<rt>かくりつ</rt></ruby>、<ruby>追加<rt>ついか</rt></ruby>、<ruby>並<rt>なら</rt></ruby>べ<ruby>替<rt>か</rt></ruby>えとコピーを<ruby>含<rt>ふく</rt></ruby>んでいる。
+ここは<ruby>配列<rt>はいれつ</rt></ruby> array を紹介する。<ruby>確立<rt>かくりつ</rt></ruby>、<ruby>追加<rt>ついか</rt></ruby>、<ruby>並<rt>なら</rt></ruby>べ<ruby>替<rt>か</rt></ruby>えとコピーが<ruby>含<rt>ふく</rt></ruby>まれている。
 
 Here is going to introduce "array", includes establishing, adding, sorting and copying.
+
+* <ruby>含<rt>ふく</rt></ruby>まれている：自動詞
 
 ---
 
 "陣列 array"是由一連串的元素組成，元素可以都相同(都是整數)，也可以不相同，整數和字串交雜，甚至放另一個陣列進去也可以。
 
-配列は色々な要素を並べる。これら<ruby>要素<rt>ようそ</rt></ruby>は同じ物も、異なる物も大丈夫だ。配列に格納されている要素の一つ一つの型が異なっているても大丈夫だ。
+配列は色々な要素からなっている、これらの要素は同じでも大丈夫だが、違っても大丈夫だ。
+
+整数と文字列は<ruby>混<rt>ま</rt></ruby>ざっている。しかも、他の配列を入れても大丈夫だ。
 
 Array is composed by a series of elements which can all same(all is integer) or not all same. Randomly place integers and strings, or another array in the array is valid.
 
 *　配列に格納されている要素の一つ一つの型が異なっているても大丈夫だ。
 
+*　からなる：由...組成
+*　は：強調後面；　が:強調前面
+
 ---
 
 陣列的元素由中括弧所包住，逗號分隔每一個元素，以下示範建立。
 
-配列の要素は<ruby>角括弧<rt>かくがっこ</rt></ruby>に<ruby>取<rt>と</rt></ruby>り<ruby>囲<rt>かこ</rt></ruby>んで、<ruby>読点<rt>とうてん</rt></ruby>で要素に分かれる。下は例だ。
+配列の要素は<ruby>角括弧<rt>かくがっこ</rt></ruby>で<ruby>取<rt>と</rt></ruby>り<ruby>囲<rt>かこ</rt></ruby>まれていて、<ruby>読点<rt>とうてん</rt></ruby>で要素に分かれている。下記は例だ。
 
 Elements of array are enclosed by brackets, and are separated by a comma. The following example is establishing a array.
+
+* 下記：文章用，"下方"範例等；下：純粹的下面，某某東西的下面的
 
 ```python
 array1 = [1, 2, 3]
