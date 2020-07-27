@@ -20,9 +20,7 @@ Here is going to introduce "array", includes establishing, adding, sorting and c
 
 "陣列 array"是由一連串的元素組成，元素可以都相同(都是整數)，也可以不相同，整數和字串交雜，甚至放另一個陣列進去也可以。
 
-配列は色々な要素からなっている、これらの要素は同じでも大丈夫だが、違っても大丈夫だ。
-
-整数と文字列は<ruby>混<rt>ま</rt></ruby>ざっている。しかも、他の配列を入れても大丈夫だ。
+配列は色々な要素からなっている、これらの要素は同じでも大丈夫だが、違っても大丈夫だ。整数と文字列は<ruby>混<rt>ま</rt></ruby>ざっている。しかも、他の配列を入れても大丈夫だ。
 
 Array is composed by a series of elements which can all same(all is integer) or not all same. Randomly place integers and strings, or another array in the array is valid.
 

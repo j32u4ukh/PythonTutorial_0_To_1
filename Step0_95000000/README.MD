@@ -40,7 +40,7 @@ This time we will implement the "Rotor", which is the same as the reflector to t
 
 違うのは、スクランブラーは<ruby>方向性<rt>ほうこうせい</rt></ruby>があり、そして、ペアワイズ交換ではないだ。
 
-But the difference is that the rotator is directional and non-pairwise interchange.
+But the difference is that the rotor is directional and non-pairwise interchange.
 
 ---
 
@@ -170,6 +170,8 @@ self.forward 儲存'輸入往反射板'方向的元素轉換規則。
 
 self.forward は「輸入からリフレクターへ」の「要素変換ルール」。
 
+self.forward stores the element conversion rules in the direction of 'from input to reflector'.
+
 ```python
         self.forward = []
 ```
@@ -177,6 +179,8 @@ self.forward は「輸入からリフレクターへ」の「要素変換ルー�
 self.backward 儲存'反射板往輸出'方向的元素轉換規則。
 
 self.forward は「リフレクターから輸出へ」の「要素変換ルール」。
+
+self.backward stores the element conversion rules in the direction of 'from reflector to output'.
 
 ```python
         self.backward = []
@@ -186,6 +190,8 @@ self.forward は「リフレクターから輸出へ」の「要素変換ルー�
 
 self.forward と self.backward の「要素変換ルール」を<ruby>初期化<rt>しょきか</rt></ruby>する。
 
+Initialize the element conversion rules of self.forward and self.backward.
+
 ```python
         self.setSwap()
 ```
@@ -193,6 +199,8 @@ self.forward と self.backward の「要素変換ルール」を<ruby>初期化<
 根據建立物件時傳入的 items 來形成元素轉換規則。
 
 オブジェクトを建立している時の items で、「要素変換ルール」を決める。
+
+The element conversion rules are formed according to the items passed in when creating the object.
 
 ```python
     def setSwap(self):
@@ -202,14 +210,18 @@ self.forward と self.backward の「要素変換ルール」を<ruby>初期化<
 
 self.forward と self.backward を初期化して、長さは self.length。
 
+Initialize self.forward and self.backward, their length are self.length.
+
 ```python
         self.forward = [0 for _ in range(self.length)]
         self.backward = [0 for _ in range(self.length)]
 ```
 
-self.shuffle_sequence 保存了 items 的原始順序，因此以下透過 self.shufEnigmafle_sequence 來存取元素。
+self.shuffle_sequence 保存了 items 的原始順序，因此以下透過 self.shuffle_sequence 來存取元素。
 
 self.shuffle_sequence は items 元の順番は保存したので、下は self.shuffle_sequence から要素をアクセスする。
+
+self.shuffle_sequence saves the original order of items, so the following access elements through self.shuffle_sequence.
 
 ```python
         for i in range(self.length):
@@ -219,17 +231,23 @@ self.shuffle_sequence は items 元の順番は保存したので、下は self.
 
 self.shuffle_sequence の第 i 目要素をアクセスして、curr_char を命名する。
 
+Get the i-th element of 'self.shuffle_sequence' and name it curr_char.
+
 ---
 
 再取得 curr_char 在'self.origin_sequence'中的索引值，命名為 curr_index 。
 
 そして、self.origin_sequence 中の curr_char のインデックスをもって、curr_index を命名する。
 
+Then get the index value of curr_char in 'self.origin_sequence' and name it curr_index.
+
 ---
 
 注意：這裡使用了'順序不同'但'元素相同'的兩個陣列。
 
 注意：ここは「順番は違うでも要素は同じ」の二つ配列を使いました。
+
+Note: Two arrays with 'same elements' but 'different order' are used here.
 
 ```python
             curr_char = self.shuffle_sequence[i]
@@ -239,6 +257,8 @@ self.shuffle_sequence の第 i 目要素をアクセスして、curr_char を命
 next_idx 為下一個索引值，若超過陣列範圍，則索引值設為 0。
 
 next_idx は次のインデックス、もし配列の範囲を<ruby>超<rt>こ</rt></ruby>えて、インデックスが 0 になる。
+
+The next_idx is the next index value. If it exceeds the range of the array, the index value will be set to 0.
 
 ```python
             next_idx = i + 1
@@ -250,36 +270,40 @@ next_idx は次のインデックス、もし配列の範囲を<ruby>超<rt>こ<
 
 self.shuffle_sequence の第 next_idx 目要素をアクセスして、next_char を命名する。
 
+Similarly, get the next_idx-th element of 'self.shuffle_sequence' and name it next_char.
+
 ---
 
 再取得 next_char 在'self.origin_sequence'中的索引值，命名為 next_index 。
 
 そして、self.origin_sequence 中の next_char のインデックスをもって、next_index を命名する。
 
+Then get the index value of next_char in 'self.origin_sequence' and name it next_index.
+
 ```python
             next_char = self.shuffle_sequence[next_idx]
             next_index = self.getIndex(next_char)
 ```
 
-原始陣列；元の配列
+原始陣列；元の配列; Original array
 
 self.shuffle_sequence = items.copy() = ['ㄅ', 'あ', 'a']
 
 ---
 
-排序後形成；順番を並んだ後の配列
+排序後形成；順番を並んだ後の配列; After be sorted 
 
 self.origin_sequence = items.copy().sort() = ['a', 'あ', 'ㄅ']
 
 ---
 
-元素轉換規則(curr_char → next_char)；要素変換ルール
+元素轉換規則(curr_char → next_char)；要素変換ルール; element conversion rule
 
-元素:   'ㄅ' → 'あ'；'あ' → 'a'；'a' → 'ㄅ'
+元素;元素; element:                         'ㄅ' → 'あ'；'あ' → 'a'；'a' → 'ㄅ'
 
-索引;インデックス:         2   →  1  ； 1   →  0 ； 0  →  2
+索引;インデックス; index:                   2   →  1  ； 1   →  0 ； 0  →  2
 
-索引變化;インデックスの変化:    -1    ；     -1   ；    +2
+索引變化;インデックスの変化; change of indexs:   -1    ；     -1   ；    +2
 
 self.forward = [-1, -1, +2]
 
@@ -288,6 +312,8 @@ self.forward = [-1, -1, +2]
 注意：元素和索引分別參考不同陣列。
 
 注意：要素とインデックスは別々の配列をからだ。
+
+Note: Elements and indexes refer to different arrays respectively.
 
 ```python
             _next_gap = next_index - curr_index
@@ -298,11 +324,15 @@ self.forward = [-1, -1, +2]
 
 輸入からの要素変換ルールと輸出からのルールを対して。
 
+The element conversion rules of the positive order and the reverse order correspond exactly to each other.
+
 ---
 
 例如：正序時，第 0 個元素 +3 變為第 3 個元素；反序時，第 3 個元素 -3 變為第 0 個元素。
 
 例えば、輸入からとき、第 0 目要素 3 を足すと第 3 目要素になて、そして、輸出からとき、第 3 目要素 3 をひくと第 3 目要素になる。
+
+For example: in the positive order, the 0th element +3 becomes the 3rd element; in the reverse order, the 3rd element -3 becomes the 0th element.
 
 ---
 
@@ -310,11 +340,15 @@ self.forward 和 self.backward 中儲存的值代表的意義請在此理解清�
 
 self.forward と self.backward に保存した数値の意味をここで理解してください、紙で書いて考えることに助けて。
 
+Please understand the meaning of the values ​​stored in self.forward and self.backward here. You can draw it on paper to help you think.
+
 ---
 
 當中的值本文中會稱為'元素轉換規則'或'偏移值'，請記得這兩個詞的意義。
 
 この数値が'要素変換ルール'または'オフセット值'と呼ばれて、この二つ<ruby>言葉<rt>ことば</rt></ruby>の意味を覚えてください。
+
+The value in this article will be called "element conversion rule" or "offset value", please remember the meaning of these two words.
 
 ---
 
@@ -322,12 +356,15 @@ self.forward と self.backward に保存した数値の意味をここで理解�
 
 要素変換ルールは”第 0 目要素を第 3 目要素になて”の場合なら、オフセット值は +3。
 
+The 0th element becomes the 3rd element, and the 'offset value' is +3.
+
 ---
 
 第 7 個元素變為第 2 個元素，'偏移值'為 -5。
 
 要素変換ルールは”第 7 目要素を第 2 目要素になて”の場合なら、オフセット值は -5。
 
+The 7th element becomes the 2nd element, and the 'offset value' is -5.
 
 ```python
             for i in range(self.length):
@@ -339,6 +376,8 @@ self.forward と self.backward に保存した数値の意味をここで理解�
 
 ”輸入から反射板まで”の方向の要素変換。
 
+Element conversion in the direction of 'input to reflector'.
+
 ```python
     def forwardSwap(self, input_data):
 ```
@@ -346,6 +385,8 @@ self.forward と self.backward に保存した数値の意味をここで理解�
 加密/解密次數 +1。
 
 暗号化と解読することの回数に 1 を足す。
+
+Times of encryption/decryption +1.
 
 ```python
         self.counter += 1
@@ -355,6 +396,8 @@ self.forward と self.backward に保存した数値の意味をここで理解�
 
 輸入要素は self.origin_sequence のどこにいます、そのインデックスをもらう。
 
+Get the index value of the input element in self.origin_sequence.
+
 ```python
         index = self.getIndex(input_data)
 ```
@@ -363,11 +406,15 @@ self.forward と self.backward に保存した数値の意味をここで理解�
 
 下の二つ行を一緒に理解してべきだ。
 
+The two lines below should be understood together.
+
 ---
 
 index + self.forward[swap_index] 表示原本的元素索引值變成新的索引值。
 
 index + self.forward[swap_index] の意味は本来の要素のインデックスを新しいインデックスになって。
+
+index + self.forward[swap_index] means that the original element index value becomes the new index value.
 
 ---
 
@@ -375,11 +422,17 @@ index + self.forward[swap_index] の意味は本来の要素のインデック�
 
 例えば、0 → 3；7 → 2、要素変換の効果を到達する。
 
+For example: 0 → 3; 7 → 2, to achieve the effect of element conversion.
+
+For example: 0 → 3; 7 → 2, to achieve the effect of element conversion.
+
 ---
 
 原本元素在陣列中第幾個位置(index)，就會採用 self.forward 中第幾個位置的'偏移值'。
 
 元の要素は配列の第何目(index)、self.forward の第何目のオフセット值を使って。
+
+Which number of position/index of array is original element in, it will use which number of position/index of 'offset value' in 'self.forward'.
 
 ---
 
@@ -387,11 +440,15 @@ index + self.forward[swap_index] の意味は本来の要素のインデック�
 
 でもここはその上で self.pointer を足して、self.forward の第 (index + self.pointer) 目のオフセット值を使う。
 
+But self.pointer is added here, this conversion will use the'offset value' of the (index + self.pointer)-th position in self.forward.
+
 ---
 
-後面的'% self.length'是在確保前面數值不會超過陣列範圍。
+後面的 '% self.length' 是在確保前面數值不會超過陣列範圍。
 
 後ろの '% self.length' は前の数値が配列の範囲を超えらないを<ruby>確保<rt>かくほ</rt></ruby>する。
+
+The following '% self.length' is to ensure that the previous value will not exceed the range of the array.
 
 ```python
         swap_index = (index + self.pointer) % self.length
@@ -408,6 +465,8 @@ index + self.forward[swap_index] 後の output_data は配列の範囲に超え�
 
 self.getChar を使って要素を戻り、範囲を超えらないを確保する。
 
+Return the element through self.getChar to ensure that it does not exceed the range of the array.
+
 ```python
         return self.getChar(output_data)
 ```
@@ -415,6 +474,8 @@ self.getChar を使って要素を戻り、範囲を超えらないを確保す�
 '反射板往輸出'方向的元素轉換規則。
 
 '反射板から輸出まで'方向の要素変換ルール。
+
+The rule of element conversion in the direction of 'from reflector to output'.
 
 ```python
     def backwardSwap(self, input_data):
@@ -424,6 +485,8 @@ self.getChar を使って要素を戻り、範囲を超えらないを確保す�
 
 輸入要素は self.origin_sequence のどこにいます、そのインデックスをもらう。
 
+Get the index value of the input element in self.origin_sequence.
+
 ```python
         index = self.getIndex(input_data)
 ```
@@ -431,6 +494,8 @@ self.getChar を使って要素を戻り、範囲を超えらないを確保す�
 基本上和 forwardSwap 相同，但'偏移值'的來源從 self.forward 變成 self.backward。
 
 forwardSwap と<ruby>殆<rt>ほとん</rt></ruby>ど同じが、オフセット值は self.forward からでなく、self.backward からです。
+
+Basically the same as forwardSwap, but the source of the 'offset value' has changed from self.forward to self.backward.
 
 ```python
         swap_index = (index + self.pointer) % self.length
@@ -443,6 +508,8 @@ forwardSwap と<ruby>殆<rt>ほとん</rt></ruby>ど同じが、オフセット�
 
 スクランブラーを回すの必要かどうかチェックして、つまり、self.pointer += 1。
 
+Check whether it is necessary to rotate the rotor, that is, self.pointer += 1.
+
 ```python
     def checkRotate(self):
 ```
@@ -451,6 +518,8 @@ forwardSwap と<ruby>殆<rt>ほとん</rt></ruby>ど同じが、オフセット�
 
 暗号化と解読することの回数はキャリー値に割り切れる場合なら、スクランブラーを<ruby>回<rt>まわ</rt></ruby>して一回。
 
+The times of encryption/decryption(self.counter) is divided evenly by the carry value (self.carry), and then rotates the rotor once.
+
 ```python
         if self.counter % self.carry == 0:
 ```
@@ -458,6 +527,8 @@ forwardSwap と<ruby>殆<rt>ほとん</rt></ruby>ど同じが、オフセット�
 轉動旋轉盤，改變元素轉換規則。
 
 スクランブラーを回して、要素変換ルールを変える。
+
+Rotate the rotor to change the element conversion rules.
 
 ```python
             self.pointer += 1
@@ -554,11 +625,15 @@ def rotorTest():
 
 前のチュートリアルは import を紹介した、import で書いたコードをもう一度利用する。
 
+In the previous course, import was introduced, and the code written before can be used again through import.
+
 ---
 
-但若這個腳本中不只有單純定義函式或物件，還使用了它們，那再使用 import 的同時，這些程式碼也都會被執行。
+但若這個腳本中不只有單純定義函式或物件，還使用了它們，那在使用 import 的同時，這些程式碼也都會被執行。
 
 だが、もしこのスクリプトの中には関数とオブジェクトだけでなく、他のコードを実行するもありますなら、import を利用するとき、それも実行されている。
+
+But if this script not only defines functions or objects, but also uses them, these codes will be executed when we import them.
 
 ---
 
@@ -566,11 +641,15 @@ def rotorTest():
 
 上の状況を<ruby>避<rt>さ</rt></ruby>けるため、コード if __name__ == "__main__": を利用して、条件 __name__ == "__main__" が満たされている場合は下のコードを行されている。
 
+In order to avoid the above situation, we need to use 'if __name__ == "__main__":'. The code below this line of code will be executed, only if it meets the conditions of __name__ == "__main__".
+
 ---
 
 而 __name__ == "__main__" 表示的就是這段程式碼是被當前這個腳本所執行，而不是透過 import 而被執行的。
 
 __name__ == "__main__" の意味は”今のコードが今のスクリプトに実行されて、import されるではない”。
+
+And __name__ == "__main__" means that this piece of code is executed by the current script, not by import.
 
 ```python
 if __name__ == "__main__":
