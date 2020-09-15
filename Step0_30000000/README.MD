@@ -10,7 +10,11 @@
 
 這裡要介紹的是"陣列 array"，包含建立、添加、排序與複製。
 
-ここは<ruby>配列<rt>はいれつ</rt></ruby> array を紹介する。<ruby>確立<rt>かくりつ</rt></ruby>、<ruby>追加<rt>ついか</rt></ruby>、<ruby>並<rt>なら</rt></ruby>べ<ruby>替<rt>か</rt></ruby>えとコピーが<ruby>含<rt>ふく</rt></ruby>まれている。
+ここは<ruby>配列<rt>はいれつ</rt></ruby> array を紹介する。
+
+<ruby>確立<rt>かくりつ</rt></ruby>、<ruby>追加<rt>ついか</rt></ruby>、
+
+<ruby>並<rt>なら</rt></ruby>べ<ruby>替<rt>か</rt></ruby>えとコピーが<ruby>含<rt>ふく</rt></ruby>まれている。
 
 Here is going to introduce "array", includes establishing, adding, sorting and copying.
 
@@ -61,7 +65,7 @@ print(array1)
 
 有了 append() 添加元素，一開始建立"陣列 array"的時候也可以是空的，事後再將元素加進去。
 
-append() があれば、配列を確立するのとき、何もありませんでも大丈夫だ。その後要素に追加すれば大丈夫だ。
+append() があれば、配列を確立するのとき、何もなくても大丈夫だ。後で、要素を追加すれば大丈夫だ。
 
 With append function, we can establish an empty array, add elements after establishing.
 
@@ -75,7 +79,7 @@ print(array3)
 
 array1 和 array3 的元素都是 1, 2, 3 只是順序不一樣，若我們想讓它由小排到大，可以利用 sort()，請看以下示範。
 
-array1 と array3 の要素は 1, 2, 3 だが、シーケンスが違うだ。小さい物から大きい物に並べ替えしたがるなら、sort() を使ってみましょう。
+array1 と array3 の要素は 1, 2, 3 だが、シーケンスが違うだ。小さい数字から大きい数字に並べ替えしたいなら、sort() を使ってみましょう。
 
 Elements of array1 and array3 are 1, 2, 3, but the order is different. If we want to sort it from small to big, we can use sort function. Please see the following demonstration.
 
@@ -87,11 +91,16 @@ print(array1)
 print(array3)
 ```
 
-可以看到在 array3.sort() 之後，array3 的順序也變成由小排到大。如果我只想排序之後做一些操作，並不想該改到原本的陣列的話，就要透過 copy()。
+可以看到在 array3.sort() 之後，array3 的順序也變成由小排到大。如果我只想排序之後做一些操作，並不想改到原本的陣列的話，就要透過 copy()。
 
-array3.sort() したあと、array3 の順番は小さい物から大きい物までになる。並べ替えだけしたがるなら、copy() を使って元の配列が変えられない。
+array3.sort() したあと、array3 の順番は小さい数字から大きい数字まで並べられている。
+
+並べ替えたいだけなら、copy() を使えれば元の配列をキープすることができる。
 
 We can see that after using array3.sort(), the order of array3 become from small to big. If we want to do something after sorting, but do not want to change the origin array, we need to use copy function. 
+
+*　〜は〜が、〜は〜です。
+*　copy() は元の配列を
 
 ```python
 array4 = [3, 1, 2]
@@ -103,7 +112,7 @@ print(array5)
 
 如果你覺得一樣是給陣列 [3, 1, 2] 的值，為何不直接 array5 = array4 就好了呢？
 
-array4 と array5 も [3, 1, 2] をあげられるが、どうして直接的に array5 = array4 であればいい？
+array4 と array5 に [3, 1, 2] を代入する場合は、どうして直接に array5 = array4 を書かないでしょうか？
 
 You may think that array4 and array5 are both equal to [3, 1, 2], why don't we directly assign array4 to array5?
 
@@ -111,17 +120,24 @@ You may think that array4 and array5 are both equal to [3, 1, 2], why don't we d
 
 這裡順便介紹一下，如何讀取、修改陣列中的特定值。
 
-<ruby>因<rt>ちな</rt></ruby>みに、ここに配列の数値を取得と修正を紹介する。
+<ruby>因<rt>ちな</rt></ruby>みに、ここで配列の数値の取得と修正を紹介する。
 
 By the way, following part is going to introduce how to read and modify specific values in the array.
+
+*　コンピューターを勉強する
+*　コンピューターの勉強をする
 
 ---
 
 可利用 陣列[索引值] 讀取或修改，索引值從 0 開始計算，長度為 3 的陣列，索引值依序為 0, 1, 2。
 
-配列[インデックス]　のような<ruby>形<rt>かたち</rt></ruby>で取得するとか、<ruby>修正<rt>しゅうせい</rt></ruby>するとか。インデックスはゼロからカウントする。配列の長さは三たら、インデックスが　0, 1, 2。
+配列[インデックス]　のような<ruby>形<rt>かたち</rt></ruby>で取得するとか、<ruby>修正<rt>しゅうせい</rt></ruby>するとか。
 
-Using the pattern likes "array[index]" to read or modify. Index is starting to count from 0, indexes of an array which length is 3 are 0, 1, 2 in order.
+インデックスはゼロからカウントする。配列の長さは三たら、インデックスが　0, 1, 2。
+
+Using the pattern likes "array[index]" to read or modify. 
+
+Index is starting to count from 0, indexes of an array which length is 3 are 0, 1, 2 in order.
 
 ```python
 array4 = [3, 1, 2]
