@@ -4,7 +4,7 @@
 
 Python を習い始める時、私はもう最初のプロジェクトにとして Enigma を実装して決めた、それはとても面白い挑戦だからです。
 
-At beginnig of learning Python, I had decided to implement "Enigma" as my first project, because it is an intersting chalenge to me.
+At beginnig of learning Python, I had decided to implement "Enigma" as my first project, because it is an intersting challenge to me.
 
 ---
 
@@ -12,7 +12,7 @@ At beginnig of learning Python, I had decided to implement "Enigma" as my first 
 
 ぜろからいちまでは<ruby>最<rt>もっと</rt></ruby>も難しいので、このシリーズのプロジェクトで自分習ったの内容を記録しながら、プログラムを自分で勉強したい人を助けたいです。
 
-"From zero to one" is the most difficult step. I hope not only to help people who want to learn programming but also to record my learning process by this series of projects.
+"From zero to one" is the most difficult step. I hope not only to help people who want to learn programming, but also to record my learning process by this series of projects.
 
 ---
 
@@ -28,7 +28,7 @@ To practice English and Japanese is one of my motivation, so I'll do my best to 
 
 言語能力は上手ではありませんので、完璧な翻訳ではありません。許してください。
 
-It's not perfect translation of sentence, please forgive me for my limited language ability.
+It's not a perfect translation of the sentence, please forgive me for my limited language ability.
 
 ---
 
